@@ -13,9 +13,6 @@ from textual.widgets import TextArea
 import db
 
 
-PROJECTS = [(val, val) for val in db.project_names()]
-
-
 class NoteForm(Vertical):
 
     DEFAULT_CSS = """\
@@ -72,5 +69,9 @@ class NoteApp(App):
         self.log(self.css_tree)
 
 
-app = NoteApp()
-app.run()
+if __name__ == "__main__":
+    data = db.DB("project_notes")
+    PROJECTS = [(val, val) for val in data.project_names()]
+
+    app = NoteApp()
+    app.run()
