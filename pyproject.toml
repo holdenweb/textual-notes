@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "notes"
+version = "0.1.0"
+description = "Simple way to keep some sort of diary."
+authors = ["Steve Holden <steve@holdenweb.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9 || ^3.10 || ^3.11 || ^3.12 || ^3.13"
+textual = "^1.0.0"
+mongoengine = "^0.29.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
