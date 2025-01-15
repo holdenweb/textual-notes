@@ -14,7 +14,6 @@ import db
 
 
 class NoteForm(Vertical):
-
     DEFAULT_CSS = """\
 NoteForm {
     width: 60;
@@ -53,7 +52,6 @@ NoteForm {
 
 
 class NoteApp(App):
-
     DEFAULT_CSS = """
 #main-window {
     align: center middle;

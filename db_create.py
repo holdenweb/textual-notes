@@ -10,7 +10,6 @@ dotfiles
 notes""".splitlines()
 
 if __name__ == "__main__":
-
     db_name = "project_notes" if len(sys.argv) == 1 else sys.argv[1]
 
     client = me.connection.MongoClient()
