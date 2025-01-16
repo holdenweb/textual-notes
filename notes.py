@@ -1,5 +1,4 @@
 import datetime
-import sys
 
 from textual.app import App
 from textual.app import ComposeResult
@@ -71,10 +70,10 @@ class NoteApp(App):
         self.log(self.css_tree)
 
 
-def main(args):
+def main():
     app = NoteApp()
     app.run()
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main()

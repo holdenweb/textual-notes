@@ -15,3 +15,6 @@ mongoengine = "^0.29.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+note = "notes:main"
