@@ -1,4 +1,5 @@
 import datetime
+import sys
 
 from textual.app import App
 from textual.app import ComposeResult
@@ -26,11 +27,13 @@ NoteForm {
 }
 """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, db, *args, **kwargs):
+        self.db = db
         super().__init__()
 
     def compose(self) -> ComposeResult:
-        self.p_select: Select[str] = Select(PROJECTS, prompt="Select Project")
+        projects = [(n, n) for n in self.db.project_names()]
+        self.p_select: Select[str] = Select(projects, prompt="Select Project")
         self.heading: Input = Input(placeholder="Heading")
         self.note_text: TextArea = TextArea()
         self.btn: Button = Button("Submit")
@@ -59,17 +62,19 @@ class NoteApp(App):
 """
 
     def compose(self) -> ComposeResult:
+        self.db = db.DB("project_notes")
         with Vertical(id="main-window"):
-            yield NoteForm()
+            yield NoteForm(self.db)
 
     def on_click(self, event):
         self.log(self.tree)
         self.log(self.css_tree)
 
 
-if __name__ == "__main__":
-    data = db.DB("project_notes")
-    PROJECTS = [(val, val) for val in data.project_names()]
-
+def main(args):
     app = NoteApp()
     app.run()
+
+
+if __name__ == "__main__":
+    main(sys.argv)
