@@ -1,0 +1,21 @@
+#main-window {
+    align: center middle;
+    Select { outline: none; }
+    NoteForm #selections { height: 3; }
+}
+NoteForm Vertical {
+    keyline: thin blue;
+    display: block;
+    #buttonbar {
+        }
+}
+#otyp-sel, #inst-sel {
+    width: 1fr;
+}
+#selections {
+    height: auto;
+}
+
+Placeholder {
+    border: solid;
+}
