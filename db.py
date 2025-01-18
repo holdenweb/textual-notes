@@ -8,6 +8,9 @@ import mongoengine as me
 class Project(me.Document):
     name = me.StringField(unique=True)
 
+    def names(self):
+        return [p.name for p in self.objects.all().order_by("name")]
+
 
 class Note(me.Document):
     project_name = me.StringField()
