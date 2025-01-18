@@ -8,13 +8,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9 || ^3.10 || ^3.11 || ^3.12 || ^3.13"
-textual = "^1.0.0"
 mongoengine = "^0.29.1"
+textual = "^1.0.0"
 
+
+[tool.poetry.group.dev.dependencies]
+textual-dev = "^1.7.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-note = "notes:main"
+note = "old_notes:main"
