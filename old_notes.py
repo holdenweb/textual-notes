@@ -31,7 +31,7 @@ NoteForm {
         super().__init__()
 
     def compose(self) -> ComposeResult:
-        projects = [(n, n) for n in self.db.project_names()]
+        projects = [(n, n) for n in db.Project.names()]
         self.p_select: Select[str] = Select(projects, prompt="Select Project")
         self.heading: Input = Input(placeholder="Heading")
         self.note_text: TextArea = TextArea()
