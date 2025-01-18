@@ -1,7 +1,7 @@
-import db
-
 import rich
 from rich.markdown import Markdown
+
+import db
 
 
 if __name__ == "__main__":

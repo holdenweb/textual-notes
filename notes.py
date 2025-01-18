@@ -1,8 +1,10 @@
 from textual.app import App
 from textual.app import ComposeResult
-from textual.containers import Center, Horizontal
+from textual.containers import Center
+from textual.containers import Horizontal
 from textual.containers import Vertical
-from textual.widgets import Button, Placeholder
+from textual.widgets import Button
+from textual.widgets import Placeholder
 
 import db
 
