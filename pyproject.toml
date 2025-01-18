@@ -14,6 +14,7 @@ textual = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 textual-dev = "^1.7.0"
+reorder-python-imports = "^3.14.0"
 
 [build-system]
 requires = ["poetry-core"]
