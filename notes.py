@@ -6,7 +6,9 @@ from textual.containers import Center
 from textual.containers import Horizontal
 from textual.containers import Vertical
 from textual.widgets import Button
+from textual.widgets import Label
 from textual.widgets import Placeholder
+from textual.widgets import Select
 
 import db
 
@@ -15,7 +17,7 @@ class NoteForm(Vertical):
     DEFAULT_CSS = """
 """
 
-    def __init__(self, db, *args, **kwargs):
+    def __init__(self, db, otyp=None, *args, **kwargs):
         self.db = db
         super().__init__(*args, **kwargs)
 
@@ -23,27 +25,40 @@ class NoteForm(Vertical):
         self.btn: Button = Button("Submit")
         with Vertical():
             yield Horizontal(
-                Placeholder(id="otyp-sel"), Placeholder(id="inst-sel"), id="selections"
+                Select([], id="otyp-sel"), Placeholder(id="inst-sel"), id="selections"
             )
             with Horizontal(id="status"):
-                yield Vertical(
-                    Placeholder(id="content"),
-                    Center(Button("submit"), id="buttonbar"),
-                    id="info",
-                )
-                yield Placeholder(id="operations")
+                if not self.app.otyp:
+                    yield Splash()
+                else:
+                    yield NoteEditor()
+
+
+class NoteEditor(Horizontal):
+    def compose(self) -> ComposeResult:
+        yield Vertical(
+            Placeholder(id="content"),
+            Center(Button("submit"), id="buttonbar"),
+            id="info",
+        )
+        yield Placeholder(id="operations")
+
+
+class Splash(Center):
+    def compose(self):
+        yield Label("Select an object type to edit")
 
 
 class NoteApp(App):
     CSS_PATH = "x.tcss"
 
     def __init__(self, otyp, *args, **kwargs):
-        self.db = db.DB("project_notes")
+        self.db = db.DB("project_notes")  # This could become a CLI option
         self.otyp = otyp
         super().__init__(*args, **kwargs)
 
     def compose(self) -> ComposeResult:
-        yield NoteForm(self.db, id="main-window")
+        yield NoteForm(self.db, otyp=self.otyp, id="main-window")
 
     def on_click(self, event):
         self.log(self.tree)
@@ -53,7 +68,7 @@ class NoteApp(App):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--type", default="notes", help="The object type to be maintained."
+        "--type", default=None, help="The object type to be maintained."
     )
     args = parser.parse_args()
     print(args)
