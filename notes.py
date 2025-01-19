@@ -1,3 +1,5 @@
+import argparse
+
 from textual.app import App
 from textual.app import ComposeResult
 from textual.containers import Center
@@ -23,18 +25,25 @@ class NoteForm(Vertical):
             yield Horizontal(
                 Placeholder(id="otyp-sel"), Placeholder(id="inst-sel"), id="selections"
             )
-            yield Horizontal(
-                Placeholder(id="info"), Placeholder(id="operations"), id="status"
-            )
-            yield Center(self.btn, id="buttonbar")
+            with Horizontal(id="status"):
+                yield Vertical(
+                    Placeholder(id="content"),
+                    Center(Button("submit"), id="buttonbar"),
+                    id="info",
+                )
+                yield Placeholder(id="operations")
 
 
 class NoteApp(App):
     CSS_PATH = "x.tcss"
 
-    def compose(self) -> ComposeResult:
+    def __init__(self, otyp, *args, **kwargs):
         self.db = db.DB("project_notes")
-        yield NoteForm(self, id="main-window")
+        self.otyp = otyp
+        super().__init__(*args, **kwargs)
+
+    def compose(self) -> ComposeResult:
+        yield NoteForm(self.db, id="main-window")
 
     def on_click(self, event):
         self.log(self.tree)
@@ -42,7 +51,13 @@ class NoteApp(App):
 
 
 def main():
-    app = NoteApp()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--type", default="notes", help="The object type to be maintained."
+    )
+    args = parser.parse_args()
+    print(args)
+    app = NoteApp(otyp=args.type)
     app.run()
 
 

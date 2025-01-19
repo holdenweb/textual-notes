@@ -16,6 +16,9 @@ NoteForm Vertical {
     }
     #info {
         width: 6fr;
+        #content {
+            height: 1fr;
+        }
     }
     #operations {
         min-width: 12;
