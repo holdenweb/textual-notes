@@ -5,17 +5,27 @@
 }
 NoteForm Vertical {
     keyline: thin blue;
-    display: block;
-    #buttonbar {
-        }
-}
-#otyp-sel, #inst-sel {
-    width: 1fr;
-}
-#selections {
-    height: auto;
+    #selections {
+        height: 3;
+    }
+    #otyp-sel {
+        width: 2fr;
+    }
+    #inst-sel {
+        width: 3fr;
+    }
+    #info {
+        width: 5fr;
+    }
+    #operations {
+        width: 12;
+    }
+    #selections {
+        height: auto;
+    }
 }
 
 Placeholder {
-    border: solid;
+    border: none;
+    min-height: 1;
 }

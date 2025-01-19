@@ -23,7 +23,9 @@ class NoteForm(Vertical):
             yield Horizontal(
                 Placeholder(id="otyp-sel"), Placeholder(id="inst-sel"), id="selections"
             )
-            yield Horizontal(Placeholder(), Placeholder(), id="status")
+            yield Horizontal(
+                Placeholder(id="info"), Placeholder(id="operations"), id="status"
+            )
             yield Center(self.btn, id="buttonbar")
 
 
