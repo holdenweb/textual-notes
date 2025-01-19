@@ -15,10 +15,11 @@ NoteForm Vertical {
         width: 3fr;
     }
     #info {
-        width: 5fr;
+        width: 6fr;
     }
     #operations {
-        width: 12;
+        min-width: 12;
+        width: 1fr;
     }
     #selections {
         height: auto;
