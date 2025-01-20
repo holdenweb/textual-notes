@@ -3,20 +3,20 @@
     Select { outline: none; }
     NoteForm #selections { height: 4; }
 }
-NoteForm Vertical {
-    keyline: thin blue;
+Skeleton Vertical {
     #selections {
         height: auto;
     }
     #otyp-sel {
         width: 2fr;
-        border-top: heavy blue;
+        border-top: panel;
     }
     #inst-sel {
         width: 3fr;
+        border-top: panel;
     }
     #status {
-        margin: 0;
+        margin: 1;
     }
     #info {
         width: 6fr;
@@ -36,7 +36,7 @@ NoteForm Vertical {
 .splash-holder {
     margin: 0;
     align: center middle;
-    border: thick orange;
+    border: thick;
     height: 1fr;
 }
 

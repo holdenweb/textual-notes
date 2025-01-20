@@ -8,45 +8,30 @@ from textual.containers import Vertical
 from textual.widgets import Button
 from textual.widgets import Input
 from textual.widgets import Label
-from textual.widgets import Placeholder
 from textual.widgets import Select
 
 import db
 
 
-class NoteForm(Vertical):
+class Skeleton(Vertical):
     DEFAULT_CSS = """
 """
 
-    def __init__(self, db, argd=None, *args, **kwargs):
-        self.argd = argd
-        self.db = db
+    def __init__(self, *args, **kwargs):
+        """
+        Delete if not required
+        """
         super().__init__(*args, **kwargs)
 
     def compose(self) -> ComposeResult:
         self.btn: Button = Button("Submit")
-        ots = Select([], id="otyp-sel")
-        ots.border_title = "Select object type"
+        ots = Select([("Note", db.Note)], id="otyp-sel")
+        ots.border_title = "object type"
         ins = Input(id="inst-sel")
         with Vertical():
             yield Horizontal(ots, ins, id="selections")
             with Horizontal(id="status"):
-                if not self.argd.type:
-                    yield Splash("Please select an object type above")
-                else:
-                    yield NoteEditor()  # Representing --type=notes --op=edit
-                    # but with no instance selected
-                    # pretty sure I'm grasping for a generality here ...
-
-
-class NoteEditor(Horizontal):
-    def compose(self) -> ComposeResult:
-        yield Vertical(
-            Placeholder(id="content"),
-            Center(Button("submit"), id="buttonbar"),
-            id="info",
-        )
-        yield Placeholder(id="operations")
+                yield Splash("Select\nobject\n type")
 
 
 class Splash(Center):
@@ -55,8 +40,7 @@ class Splash(Center):
         super().__init__(*args, classes="splash-holder", **kwargs)
 
     def compose(self):
-        with Center(classes="splash-holder"):
-            yield Label(self.message)
+        yield Label(self.message)
 
 
 class NoteApp(App):
@@ -68,7 +52,7 @@ class NoteApp(App):
         super().__init__(*args, **kwargs)
 
     def compose(self) -> ComposeResult:
-        yield NoteForm(self.db, argd=self.argd, id="main-window")
+        yield Skeleton(id="main-window")
 
     def on_click(self, event):
         self.log(self.tree)
