@@ -1,18 +1,22 @@
 #main-window {
     align: center middle;
     Select { outline: none; }
-    NoteForm #selections { height: 3; }
+    NoteForm #selections { height: 4; }
 }
 NoteForm Vertical {
     keyline: thin blue;
     #selections {
-        height: 3;
+        height: auto;
     }
     #otyp-sel {
         width: 2fr;
+        border-top: heavy blue;
     }
     #inst-sel {
         width: 3fr;
+    }
+    #status {
+        margin: 0;
     }
     #info {
         width: 6fr;
@@ -27,6 +31,13 @@ NoteForm Vertical {
     #selections {
         height: auto;
     }
+}
+
+.splash-holder {
+    margin: 0;
+    align: center middle;
+    border: thick orange;
+    height: 1fr;
 }
 
 Placeholder {
