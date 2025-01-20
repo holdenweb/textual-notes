@@ -1,5 +1,6 @@
 import argparse
 
+from textual import on
 from textual.app import App
 from textual.app import ComposeResult
 from textual.containers import Center
@@ -25,13 +26,21 @@ class Skeleton(Vertical):
 
     def compose(self) -> ComposeResult:
         self.btn: Button = Button("Submit")
-        ots = Select([("Note", db.Note)], id="otyp-sel")
-        ots.border_title = "object type"
-        ins = Input(id="inst-sel")
+        self.ots = Select([("Note", db.Note)], id="otyp-sel")
+        self.ots.border_title = "object type"
+        self.ins = Input(id="inst-sel")
         with Vertical():
-            yield Horizontal(ots, ins, id="selections")
+            yield Horizontal(self.ots, self.ins, id="selections")
             with Horizontal(id="status"):
                 yield Splash("Select\nobject\n type")
+
+    @on(Select.Changed)
+    def type_selected(self, event: Select.Changed):
+        self.type = event.control.value
+        status = self.query_one("#status")
+        status.remove_children()
+        status.mount(Splash("Please select\n an instance"))
+        self.ins.focus()
 
 
 class Splash(Center):
