@@ -7,6 +7,7 @@ import mongoengine as me
 
 class Project(me.Document):
     name = me.StringField(unique=True)
+    homedir = me.StringField()
 
     @classmethod
     def names(cls):
