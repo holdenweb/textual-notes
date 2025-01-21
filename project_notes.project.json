@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "6788d2fd0bf23053161f0db0"
+  },
+  "name": "dotfiles"
+},
+{
+  "_id": {
+    "$oid": "6788d2fd0bf23053161f0db1"
+  },
+  "name": "notes"
+},
+{
+  "_id": {
+    "$oid": "6788d2fd0bf23053161f0db2"
+  },
+  "name": "kauri"
+},
+{
+  "_id": {
+    "$oid": "678f7cc7b61eac04df812890"
+  },
+  "name": "tagset",
+  "homedir": "/Users/sholden/Projects/Python/textual_tagset"
+}]
