@@ -1,5 +1,6 @@
 #main-window {
     align: center middle;
+    layers: main overlay;
     Select { outline: none; }
     NoteForm #selections { height: 4; }
 }
@@ -10,6 +11,7 @@ Skeleton Vertical {
     #otyp-sel {
         width: 2fr;
         border-top: panel;
+        background: yellow;
     }
     #inst-sel {
         width: 3fr;
@@ -43,4 +45,8 @@ Skeleton Vertical {
 Placeholder {
     border: none;
     min-height: 1;
+}
+
+#ph {
+    height: 4;
 }

@@ -11,6 +11,7 @@ python = "^3.9 || ^3.10 || ^3.11 || ^3.12 || ^3.13"
 mongoengine = "^0.29.1"
 textual = "^1.0.0"
 textual-tagset = "^0.3.2"
+textual-autocomplete = "<3"
 
 
 [tool.poetry.group.dev.dependencies]
