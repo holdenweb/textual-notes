@@ -1,6 +1,5 @@
-"""
-db.py: database interface for the notes project logger
-"""
+# db.py: database interface for the notes project logger
+import datetime
 
 import mongoengine as me
 
@@ -32,3 +31,12 @@ class DB:
 
     def project_names(self):
         return [p.name for p in Project.objects.all().order_by("name")]
+
+    def save_note(self, project_name, heading, comments):
+        new_note = Note(
+            project_name=project_name,
+            timestamp=datetime.datetime.now(),
+            heading=heading,
+            comments=comments,
+        )
+        new_note.save()
