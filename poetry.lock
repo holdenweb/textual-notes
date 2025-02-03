@@ -982,22 +982,6 @@ typing-extensions = ">=4.4.0,<5.0.0"
 syntax = ["tree-sitter (>=0.23.0)", "tree-sitter-bash (>=0.23.0)", "tree-sitter-css (>=0.23.0)", "tree-sitter-go (>=0.23.0)", "tree-sitter-html (>=0.23.0)", "tree-sitter-java (>=0.23.0)", "tree-sitter-javascript (>=0.23.0)", "tree-sitter-json (>=0.24.0)", "tree-sitter-markdown (>=0.3.0)", "tree-sitter-python (>=0.23.0)", "tree-sitter-regex (>=0.24.0)", "tree-sitter-rust (>=0.23.0)", "tree-sitter-sql (>=0.3.0)", "tree-sitter-toml (>=0.6.0)", "tree-sitter-xml (>=0.7.0)", "tree-sitter-yaml (>=0.6.0)"]
 
 [[package]]
-name = "textual-autocomplete"
-version = "2.1.0b0"
-description = "Easily add autocomplete dropdowns to your Textual apps."
-optional = false
-python-versions = ">=3.7.8,<4.0.0"
-groups = ["main"]
-files = [
-    {file = "textual_autocomplete-2.1.0b0-py3-none-any.whl", hash = "sha256:40a7b2e09f115465de7e339bcee4dc16f03c1e43781ee3aaf5c44f65822a5861"},
-    {file = "textual_autocomplete-2.1.0b0.tar.gz", hash = "sha256:ba31da6e9b77e4c35323c267f958f0b90e1c2ddeca9c825c7d6c29d4d33893ce"},
-]
-
-[package.dependencies]
-textual = ">=0.14.0"
-typing-extensions = ">=4.5.0,<5.0.0"
-
-[[package]]
 name = "textual-dev"
 version = "1.7.0"
 description = "Development tools for working with Textual"
@@ -1179,4 +1163,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9 || ^3.10 || ^3.11 || ^3.12 || ^3.13"
-content-hash = "ecd3e6953669bdd4ebb44290cfd8b92a9f3043d5655e4ce51688139ba5595c79"
+content-hash = "ba3d1603e4af2063217daab0cb2f2788183fbcff0d6731fc02c8430eb2740b17"

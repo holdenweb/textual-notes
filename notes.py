@@ -6,17 +6,15 @@ from textual.app import ComposeResult
 from textual.containers import Center
 from textual.containers import Horizontal
 from textual.containers import Vertical
-from textual.screen import Screen
 from textual.widgets import Button
 from textual.widgets import Input
 from textual.widgets import Label
-from textual.widgets import Placeholder
 from textual.widgets import Select
 
 import db
 
 
-class UserInterface(Vertical):
+class Skeleton(Vertical):
     DEFAULT_CSS = """
 """
 
@@ -32,11 +30,9 @@ class UserInterface(Vertical):
         self.ots.border_title = "object type"
         self.ins = Input(id="inst-sel")
         with Vertical():
-            yield Placeholder("spacer", id="ph")
             yield Horizontal(self.ots, self.ins, id="selections")
             with Horizontal(id="status"):
-                self.splash1 = Splash("Select\nobject\n type", id="splash1")
-                yield self.splash1
+                yield Splash("Select\nobject\n type")
 
     @on(Select.Changed)
     def type_selected(self, event: Select.Changed):
@@ -65,30 +61,11 @@ class NoteApp(App):
         super().__init__(*args, **kwargs)
 
     def compose(self) -> ComposeResult:
-        self.ui = UserInterface(id="main-window")
-        yield self.ui
+        yield Skeleton(id="main-window")
 
     def on_click(self, event):
         self.log(self.tree)
         self.log(self.css_tree)
-        self.push_screen(TagSetScreen("overlay", self.ui.splash1))
-        self.log("Pause for debugging?")
-
-
-class TagSetScreen(Screen):
-    BINDINGS = [("escape", "app.pop_screen", "Pop screen")]
-
-    def __init__(self, name, loc_widget, *args, **kwargs):
-        self.target_region = loc_widget.region
-        super().__init__(name, *args, **kwargs)
-
-    def compose(self) -> ComposeResult:
-        self.xpos, self.ypos = self.target_region[:2]
-        pp = Placeholder(
-            "This should appear over the top left of the Splash", id="title"
-        )
-        pp.styles.offset = self.target_region[:2]
-        yield (pp)
 
 
 def main():
