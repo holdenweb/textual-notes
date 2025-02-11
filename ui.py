@@ -2,7 +2,7 @@
 
 from textual import on
 from textual.app import ComposeResult
-from textual.containers import Center, Vertical
+from textual.containers import Center, Vertical, Horizontal
 from textual.widgets import Button, Input, Select, TextArea
 
 
@@ -16,6 +16,10 @@ NoteForm {
     & Input, & Select, & TextArea, & Center {
         margin: 1;
     }
+    #buttons {
+        width: auto;
+        height: auto;
+    }
 }
 """
 
@@ -28,17 +32,25 @@ NoteForm {
         self.p_select: Select[str] = Select(projects, prompt="Select Project")
         self.heading: Input = Input(placeholder="Heading")
         self.note_text: TextArea = TextArea()
-        self.btn: Button = Button("Submit")
+        self.s_btn: Button = Button("Submit", classes="s_btn")
+        self.c_btn: Button = Button("Cancel", classes="c_btn")
+
         yield self.p_select
         yield self.heading
         yield self.note_text
-        yield Center(self.btn)
+        with Center():
+            with Horizontal(id="buttons"):
+                yield self.c_btn
+                yield self.s_btn
 
     @on(Button.Pressed)
     def submit_form(self):
-        self.db.save_note(
-            project_name=self.p_select.value,
-            heading=self.heading.value,
-            comments=self.note_text.text,
-        )
-        self.app.exit()
+        try:
+            self.db.save_note(
+                project_name=self.p_select.value,
+                heading=self.heading.value,
+                comments=self.note_text.text,
+            )
+            self.app.exit()
+        except Exception as e:
+            self.app.notify(f"Oh, dear - I'm so sorry, that failed :-(\n{e}")
