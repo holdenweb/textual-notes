@@ -32,8 +32,8 @@ NoteForm {
         self.p_select: Select[str] = Select(projects, prompt="Select Project")
         self.heading: Input = Input(placeholder="Heading")
         self.note_text: TextArea = TextArea()
-        self.s_btn: Button = Button("Submit", classes="s_btn")
-        self.c_btn: Button = Button("Cancel", classes="c_btn")
+        self.s_btn: Button = Button("Submit", classes="s-btn")
+        self.c_btn: Button = Button("Cancel", classes="c-btn")
 
         yield self.p_select
         yield self.heading
@@ -43,7 +43,7 @@ NoteForm {
                 yield self.c_btn
                 yield self.s_btn
 
-    @on(Button.Pressed)
+    @on(Button.Pressed, ".s-btn")
     def submit_form(self):
         try:
             self.db.save_note(
@@ -53,4 +53,8 @@ NoteForm {
             )
             self.app.exit()
         except Exception as e:
-            self.app.notify(f"Oh, dear - I'm so sorry, that failed :-(\n{e}")
+            self.app.notify(f"I'm so sorry, that failed :-(\n{e}")
+
+    @on(Button.Pressed, ".c-btn")
+    def cancel_form(self):
+        self.app.exit()
