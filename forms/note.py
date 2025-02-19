@@ -1,4 +1,4 @@
-# notes.py: UI components for the notes project logger
+# note.py: Note input/edit form for the notes logger project
 
 from textual import on
 from textual.app import ComposeResult
