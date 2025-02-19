@@ -4,7 +4,7 @@ from textual.app import App, ComposeResult
 from textual.containers import Vertical
 
 from db import DB
-from ui import NoteForm
+from forms.note import NoteForm
 
 
 class NoteApp(App):
