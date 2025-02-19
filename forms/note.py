@@ -1,4 +1,4 @@
-# ui.py: UI components for the notes project logger
+# notes.py: UI components for the notes project logger
 
 from textual import on
 from textual.app import ComposeResult
