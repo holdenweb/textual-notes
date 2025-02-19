@@ -29,6 +29,7 @@ NoteForm {
 
     def compose(self) -> ComposeResult:
         projects = [(n, n) for n in self.db.project_names()]
+        projects.append(("<New Project>", "<new>"))
         self.p_select: Select[str] = Select(projects, prompt="Select Project")
         self.heading: Input = Input(placeholder="Heading")
         self.note_text: TextArea = TextArea()
@@ -42,6 +43,11 @@ NoteForm {
             with Horizontal(id="buttons"):
                 yield self.c_btn
                 yield self.s_btn
+
+    @on(Select.Changed)
+    def select_changed(self, m):
+        self.app.log("Dammit!")
+        m.stop()
 
     @on(Button.Pressed, ".s-btn")
     def submit_form(self):
