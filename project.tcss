@@ -1,0 +1,12 @@
+ProjectForm {
+    width: 60;
+    align: center middle;
+    keyline: thin blue;
+    & Input, & Select, & TextArea, & Center {
+        margin: 1;
+    }
+    #buttons {
+        width: auto;
+        height: auto;
+    }
+}
