@@ -1,6 +1,5 @@
 from textual import on
-from textual.containers import Horizontal, Center
-from textual.widget import Widget
+from textual.containers import Horizontal, Center, Vertical
 from textual.widgets import Input, Button
 from textual.app import ComposeResult
 from textual.screen import ModalScreen
@@ -8,8 +7,21 @@ from textual.screen import ModalScreen
 from db import Project
 
 
-class ProjectForm(Widget):
-    CSS_PATH = "project.tcss"
+class ProjectForm(Vertical):
+    DEFAULT_CSS = """
+ProjectForm {
+    width: 50;
+    align: center middle;
+    keyline: thin blue;
+    & Input, & Select, & TextArea, & Center {
+        margin: 1;
+    }
+    #buttons {
+        width: 75%;
+        height: auto;
+    }
+}
+"""
 
     def __init__(self, db, project=None, *args, **kwargs):
         self.project = project if project is not None else Project()
@@ -17,17 +29,17 @@ class ProjectForm(Widget):
         super().__init__(*args, **kwargs)
 
     def compose(self) -> ComposeResult:
-        self.xname: Input = Input(
+        self.pr_name: Input = Input(
             placeholder="Project Name", value=self.project.name or ""
         )
-        self.homedir: Input = Input(
+        self.pr_homedir: Input = Input(
             placeholder="Home Directory", value=self.project.homedir or ""
         )
         self.s_btn: Button = Button("Submit", classes="s-btn")
         self.c_btn: Button = Button("Cancel", classes="c-btn")
 
-        yield self.xname
-        yield self.homedir
+        yield self.pr_name
+        yield self.pr_homedir
         with Center():
             with Horizontal(id="buttons"):
                 yield self.c_btn
@@ -37,8 +49,8 @@ class ProjectForm(Widget):
     def submit_form(self):
         try:
             # Assign values to fields
-            self.project.name = self.xname.value
-            self.project.homedir = self.homedir.value
+            self.project.name = self.pr_name.value
+            self.project.homedir = self.pr_homedir.value
             # Save the (possibly new) record and return it
             self.project.save()
             self.screen.dismiss(self.project)
@@ -51,10 +63,18 @@ class ProjectForm(Widget):
 
 
 class ProjectScreen(ModalScreen):
+    DEFAULT_CSS = """
+ProjectScreen {
+    align: center middle;
+    width: 35;
+}
+"""
+
     def __init__(self, db, project=None, *args, **kwargs):
         self.project = project if project is not None else Project()
         self.db = db
         super().__init__(*args, **kwargs)
 
     def compose(self) -> ComposeResult:
-        yield ProjectForm(self.db, self.project)
+        with Vertical(id="main-window"):
+            yield ProjectForm(self.db, self.project)
