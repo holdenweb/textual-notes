@@ -3,8 +3,14 @@ from textual.containers import Horizontal, Center, Vertical
 from textual.widgets import Input, Button
 from textual.app import ComposeResult
 from textual.screen import ModalScreen
+from textual.validation import ValidationResult, Validator
 
 from db import Project
+
+
+class NonEmpty(Validator):
+    def validate(self, value) -> ValidationResult:
+        return self.success() if value else self.failure("Cannot be empty")
 
 
 class ProjectForm(Vertical):
@@ -30,7 +36,10 @@ ProjectForm {
 
     def compose(self) -> ComposeResult:
         self.pr_name: Input = Input(
-            placeholder="Project Name", value=self.project.name or ""
+            placeholder="Project Name",
+            value=self.project.name or "",
+            validators=[NonEmpty()],
+            validate_on=["changed"],
         )
         self.pr_homedir: Input = Input(
             placeholder="Home Directory", value=self.project.homedir or ""
@@ -49,13 +58,19 @@ ProjectForm {
     def submit_form(self):
         try:
             # Assign values to fields
-            self.project.name = self.pr_name.value
+            self.project.name = self.validate_field(self.pr_name)
             self.project.homedir = self.pr_homedir.value
-            # Save the (possibly new) record and return it
-            self.project.save()
-            self.screen.dismiss(self.project)
+            if self.project.name.is_valid() and self.project.homedir.is_valid():
+                # Save the (possibly new) record and return it
+                self.project.save()
+                self.screen.dismiss(self.project)
         except Exception as e:
             self.app.notify(f"I'm so sorry, that failed :-(\n{e}")
+
+    def validate_field(self, field):
+        if not field.validate():
+            raise ValueError("Field does not validate")
+        return field.value
 
     @on(Button.Pressed, ".c-btn")
     def cancel_form(self):
