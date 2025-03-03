@@ -3,9 +3,24 @@
 from textual import on
 from textual.app import ComposeResult
 from textual.containers import Center, Vertical, Horizontal
-from textual.widgets import Button, Input, Select, TextArea
-
+from textual.validation import Length
+from textual.widgets import Button, Input, Select, TextArea, Static
 from .project import ProjectScreen
+
+
+class FormControlMixin:
+    def on_blur(self, e):
+        vr = self.validate(self.value)
+        for d in vr.failure_descriptions:
+            self.parent.mount(Static(d), after=self)
+
+
+class WrappedInput(Input, FormControlMixin):
+    pass
+
+
+class WrappedTextArea(TextArea, FormControlMixin):
+    pass
 
 
 class NoteForm(Vertical):
@@ -34,8 +49,14 @@ NoteForm {
     def compose(self) -> ComposeResult:
         projects = self.read_choices()
         self.p_select: Select[str] = Select(projects, prompt="Select Project")
-        self.heading: Input = Input(placeholder="Heading")
-        self.note_text: TextArea = TextArea()
+        self.heading: WrappedInput = WrappedInput(
+            placeholder="Heading",
+            id=f"{self.id}-heading",
+            validators=[
+                Length(minimum=1, failure_description="Comments must have a heading!")
+            ],
+        )
+        self.note_text: TextArea = TextArea(id=f"{self.id}-note-text")
         self.s_btn: Button = Button("Submit", classes="s-btn")
         self.c_btn: Button = Button("Cancel", classes="c-btn")
 
@@ -48,10 +69,9 @@ NoteForm {
                 yield self.s_btn
 
     def read_choices(self):
-        projects = [(n, n) for n in self.db.project_names() if n] + [
-            ("<New Project>", "<new>")
+        return [("<New Project>", "<new>")] + [
+            (n, n) for n in self.db.project_names() if n
         ]
-        return projects
 
     def update_choices(self, result):
         return self.p_select.set_options(self.read_choices())
@@ -61,7 +81,7 @@ NoteForm {
         if m.value == "<new>":  # This action only for "New Project"
             proj = await self.app.push_screen(
                 ProjectScreen(self.db), self.update_choices
-            )
+            )  # XXX Should ideally end with new project selected
             if proj:
                 self.app.notify(f"Project {proj.name!r} added")
 

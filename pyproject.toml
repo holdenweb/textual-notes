@@ -9,13 +9,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9 || ^3.10 || ^3.11 || ^3.12 || ^3.13"
 mongoengine = "^0.29.1"
-textual = "1.*"
+textual = "1.0.0"
 textual-tagset = "^0.3.2"
 
 
 [tool.poetry.group.dev.dependencies]
 textual-dev = "^1.7.0"
 reorder-python-imports = "^3.14.0"
+ruff = "^0.9.9"
 
 [build-system]
 requires = ["poetry-core"]
