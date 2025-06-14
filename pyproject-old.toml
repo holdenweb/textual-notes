@@ -1,22 +1,23 @@
 [tool.poetry]
 name = "notes"
-version = "0.1.0"
+version = "0.2.0"
 description = "Simple way to keep some sort of diary."
 authors = ["Steve Holden <steve@holdenweb.com>"]
 license = "MIT"
 readme = "README.md"
 
+
 [tool.poetry.dependencies]
 python = "^3.9 || ^3.10 || ^3.11 || ^3.12 || ^3.13"
 mongoengine = "^0.29.1"
-textual = "1.0.0"
-textual-tagset = "^0.3.2"
+textual = "^3.3.0"
+textual-forms = {path = "../textual-forms/dist/textual_forms-0.7.6-py3-none-any.whl"}
 
 
 [tool.poetry.group.dev.dependencies]
 textual-dev = "^1.7.0"
-reorder-python-imports = "^3.14.0"
-ruff = "^0.9.9"
+reorder-python-imports = "^3.15.0"
+ruff = "^0.11.13"
 
 [build-system]
 requires = ["poetry-core"]

@@ -68,7 +68,7 @@ ProjectForm {
             self.app.notify(f"I'm so sorry, that failed :-(\n{e}")
 
     def validate_field(self, field):
-        if not field.validate():
+        if not field.validate(field.value):
             raise ValueError("Field does not validate")
         return field.value
 

@@ -1,5 +1,7 @@
 import sys
 
+import rich
+from markdown_it import MarkdownIt
 
 import db
 
@@ -15,7 +17,7 @@ if __name__ == "__main__":
         sys.exit("Can't handle  multiple arguments")
     for note in db.Note.objects(project_name=pname):
         markdown = f"\n\n{note.timestamp:## *%d %b %y* %H:%M}: **{note.heading}**\n"
-        print(markdown)
-        print(note.comments)
-        # rich.print(Markdown(markdown))
-        # rich.print(Markdown(note.comments))
+        # print(markdown)
+        # print(note.comments)
+        rich.print(MarkdownIt(markdown))
+        rich.print(MarkdownIt(note.comments))
