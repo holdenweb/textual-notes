@@ -1,19 +1,22 @@
 # app.py: main application logic
+from time import sleep
+
 from textual import on
 from textual.app import ComposeResult
 from textual.containers import Vertical
 from textual.events import Click
-from textual.screen import Screen
+from textual.screen import ModalScreen
 
 from db import DB
 from textual_forms.form import Form
+
 from forms.note import build_note_form
 
 
 def note_screen(db_name):
     db = DB(db_name)
 
-    class NoteScreen(Screen):
+    class NoteScreen(ModalScreen):
         DEFAULT_CSS = """
 #main-window {
     align: center middle;
@@ -29,12 +32,14 @@ def note_screen(db_name):
 
         def compose(self) -> ComposeResult:
             with Vertical(id="main-window"):
-                yield self.form.render_form(id="form-container")
+                yield self.form.render(id="form-container")
 
         @on(Form.Submitted)
         def submitted(self, event):
             self.app.notify(str(event.form.get_data()))
             db.save_note(**event.form.get_data())
+            sleep(3)
+            self.app.exit()
 
         @on(Form.Cancelled)
         def cancelled(self, event):
