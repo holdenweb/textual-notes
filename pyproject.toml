@@ -1,0 +1,36 @@
+[build-system]
+requires = [ "poetry-core",]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "notes"
+version = "0.2.0"
+description = "Simple way to keep some sort of diary or log."
+readme = "README.md"
+requires-python = ">= 3.9"
+ependencies = [
+ "mongoengine >= 0.29",
+ "textual >= 3.0",
+ "textual-forms",
+]
+dependencies = [
+    "mongoengine>=0.29.1",
+    "textual-forms",
+]
+[[project.authors]]
+name = "Steve Holden"
+email = "steve@holdenweb.com"
+
+[project.license]
+text = "MIT"
+
+[project.optional-dependencies]
+dev = []
+
+[dependency-groups]
+dev = [
+    "textual-dev>=1.7.0",
+]
+
+[tool.uv.sources]
+textual-forms = { path = "../textual-forms", editable = true }

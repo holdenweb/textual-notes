@@ -1,5 +1,4 @@
 # app.py: main application logic
-from time import sleep
 
 from textual import on
 from textual.app import ComposeResult
@@ -13,7 +12,7 @@ from textual_forms.form import Form
 from forms.note import build_note_form
 
 
-def note_screen(db_name):
+def note_screen(db_name, data=None):
     db = DB(db_name)
 
     class NoteScreen(ModalScreen):
@@ -27,19 +26,19 @@ def note_screen(db_name):
 """
 
         def __init__(self, *args, **kwargs):
+            self.data = data
             super().__init__(*args, **kwargs)
             self.form = build_note_form(db)
 
         def compose(self) -> ComposeResult:
             with Vertical(id="main-window"):
-                yield self.form.render(id="form-container")
+                yield self.form.render(data=self.data, id="form-container")
 
         @on(Form.Submitted)
         def submitted(self, event):
-            self.app.notify(str(event.form.get_data()))
-            db.save_note(**event.form.get_data())
-            sleep(3)
-            self.app.exit()
+            data = event.form.get_data()
+            db.save_note(**data)
+            self.dismiss(data)
 
         @on(Form.Cancelled)
         def cancelled(self, event):
