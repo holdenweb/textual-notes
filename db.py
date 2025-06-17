@@ -7,6 +7,8 @@ import mongoengine as me
 class Project(me.Document):
     name = me.StringField(unique=True)
     homedir = me.StringField()
+    description = me.StringField()
+    timestamp = me.DateTimeField()
 
     @classmethod
     def names(cls):
@@ -40,3 +42,12 @@ class DB:
             comments=comments,
         )
         new_note.save()
+
+    def save_project(self, name, homedir, description):
+        new_project = Project(
+            name=name,
+            timestamp=datetime.datetime.now(),
+            homedir=homedir,
+            description=description,
+        )
+        new_project.save()

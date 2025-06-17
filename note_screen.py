@@ -12,7 +12,7 @@ from textual_forms.form import Form
 from forms.note import build_note_form
 
 
-def note_screen(db_name, data=None):
+def build_note_screen(db_name, data=None):
     db = DB(db_name)
 
     class NoteScreen(ModalScreen):
@@ -32,12 +32,13 @@ def note_screen(db_name, data=None):
 
         def compose(self) -> ComposeResult:
             with Vertical(id="main-window"):
-                yield self.form.render(data=self.data, id="form-container")
+                yield self.form.render(id="form-container")
 
         @on(Form.Submitted)
         def submitted(self, event):
             data = event.form.get_data()
             db.save_note(**data)
+            self.app.notify(str(data))
             self.dismiss(data)
 
         @on(Form.Cancelled)

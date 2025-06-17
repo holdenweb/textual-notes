@@ -1,5 +1,6 @@
 from textual.app import App
-from note_screen import note_screen
+from note_screen import build_note_screen
+from forms.project import build_project_screen
 
 
 class ConsoleApp(App):
@@ -9,8 +10,15 @@ class ConsoleApp(App):
 
     In the initial version, each function is selected by its"""
 
-    SCREENS = {"note": note_screen("project_notes")}
-    BINDINGS = [("b", "notify(str(push_screen('note')))", "NOTE")]
+    SCREENS = {
+        "note": build_note_screen("project_notes"),
+        "project": build_project_screen("project_notes"),
+    }
+
+    BINDINGS = [
+        ("b", "push_screen('note')", "NOTE"),
+        ("p", "push_screen('project')", "PROJECT"),
+    ]
 
 
 if __name__ == "__main__":
