@@ -40,14 +40,13 @@ def build_project_screen(db_name: str, data: dict[str, Any] = None):
 
         def compose(self) -> ComposeResult:
             with Vertical(id="main-window"):
-                yield ProjectForm().render(id="form-container")
+                yield ProjectForm(title="Add Project").render(id="form-container")
 
         @on(Form.Submitted)
         def submitted(self, event):
             "Handle submission of a validated form."
             data = event.form.get_data()
             db.save_project(**data)
-            self.app.notify(str(data))
             self.dismiss(data)
 
         @on(Form.Cancelled)
