@@ -10,27 +10,25 @@ from textual_forms.field import ChoiceField, StringField, TextField
 def build_note_form(db: DB):
     class NoteForm(Form):
         project_name = ChoiceField(
-            choices=[("<New Project>", "<new>")]
-            + [(n, n) for n in db.project_names() if n],
-            required=True,
+            [(n, n) for n in db.project_names() if n],
+            required=False,
         )
-        heading = StringField("Heading", required=True)
+        heading = StringField(placeholder="Heading", required=True)
         comments = TextField()
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            self.db = db
 
-        def read_choices(self):
-            return [("<New Project>", "<new>")] + [
-                (n, n) for n in self.db.project_names() if n
-            ]
+        @classmethod
+        def read_choices(cls):
+            return [(n, n) for n in db.project_names() if n]
 
         def update_choices(self):
-            return self.fields["project_name"].widget.set_options(
-                [("<New Project>", "<new>")]
-                + [(n, n) for n in self.db.project_names() if n]
-            )
+            self.fields["project_name"].widget.set_options(self.read_choices())
+            self.fields["project_name"].widget.required = True
+
+        def on_mount(self):
+            self.update_choices()
 
         @on(Form.Submitted)
         def submit_form(self, event):
@@ -42,6 +40,6 @@ def build_note_form(db: DB):
 
         @on(Form.Cancelled)
         def cancel_form(self):
-            self.app.exit()
+            self.screen.dismiss()
 
-    return NoteForm()
+    return NoteForm(title="Add Note")

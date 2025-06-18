@@ -43,7 +43,7 @@ def build_note_screen(db_name, data=None):
 
         @on(Form.Cancelled)
         def cancelled(self, event):
-            self.app.exit()
+            self.screen.dismiss()
 
         @on(Click)  # For debug only
         def click_response(self, e):

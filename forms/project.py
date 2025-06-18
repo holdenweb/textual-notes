@@ -1,3 +1,5 @@
+from typing import Any
+
 from textual import on
 from textual.containers import Vertical
 from textual.events import Click
@@ -15,66 +17,34 @@ class NonEmpty(Validator):
         return self.success() if value else self.failure("Cannot be empty")
 
 
-def build_project_form(db: DB):
-    class ProjectForm(Form):
-        DEFAULT_CSS = """
-    ProjectForm {
-        width: 50;
-        align: center middle;
-        keyline: thin blue;
-        & Input, & Select, & TextArea, & Center {
-            margin: 1;
-        }
-        #buttons {
-            width: 75%;
-            height: auto;
-        }
-    }
-    """
-        name = StringField()
-        homedir = StringField()
-        description = TextField()
-
-        def __init__(self, *args, **kwargs):
-            self.db = db
-            super().__init__(*args, **kwargs)
-
-        @on(Form.Submitted)
-        def submit_form(self, event):
-            try:
-                self.db.save_project(**event.form.get_data())
-                self.app.exit()
-            except Exception as e:
-                self.app.notify(f"I'm so sorry, that failed :-(\n{e}")
-
-        @on(Form.Cancelled)
-        def cancel_form(self):
-            self.screen.dismiss()  # No return value => no new record
-
-    return ProjectForm()
-
-
-def build_project_screen(db_name, data=None):
+def build_project_screen(db_name: str, data: dict[str, Any] = None):
     db = DB(db_name)
+
+    class ProjectForm(Form):
+        name = StringField(placeholder="Project Name")
+        homedir = StringField(placeholder="Home Directory")
+        description = TextField()
 
     class ProjectScreen(ModalScreen):
         DEFAULT_CSS = """
-    ProjectScreen {
-        align: center middle;
-        width: 35;
-    }
-    """
+#main-window {
+    align: center middle;
+}
+#form-container {
+    width: 80%;
+}
+"""
 
         def __init__(self, project=None, *args, **kwargs):
-            self.db = db
             super().__init__(*args, **kwargs)
 
         def compose(self) -> ComposeResult:
             with Vertical(id="main-window"):
-                yield build_project_form(self.db).render(id="form-container")
+                yield ProjectForm().render(id="form-container")
 
         @on(Form.Submitted)
         def submitted(self, event):
+            "Handle submission of a validated form."
             data = event.form.get_data()
             db.save_project(**data)
             self.app.notify(str(data))
@@ -82,7 +52,7 @@ def build_project_screen(db_name, data=None):
 
         @on(Form.Cancelled)
         def cancelled(self, event):
-            self.app.exit()
+            self.dismiss(None)
 
         @on(Click)  # For debug only
         def click_response(self, e):

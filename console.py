@@ -1,4 +1,5 @@
 from textual.app import App
+from textual.widgets import Footer, Header
 from note_screen import build_note_screen
 from forms.project import build_project_screen
 
@@ -16,9 +17,14 @@ class ConsoleApp(App):
     }
 
     BINDINGS = [
-        ("b", "push_screen('note')", "NOTE"),
-        ("p", "push_screen('project')", "PROJECT"),
+        ("p", "push_screen('project')", "Projects"),
+        ("n", "push_screen('note')", "Notes"),
+        ("q", "quit()", "Quit"),
     ]
+
+    def compose(self):
+        yield Header(show_clock=True, name="textual_forms demo")
+        yield Footer()
 
 
 if __name__ == "__main__":
