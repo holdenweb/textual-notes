@@ -560,26 +560,11 @@ wheels = [
 
 [[package]]
 name = "textual-forms"
-version = "0.7.6"
-source = { editable = "../textual-forms" }
+version = "0.7.7"
+source = { git = "https://github.com/holdenweb/textual-forms?rev=r0.7.7#ad66db41013cc019a9f754b7d778e1be49a9dba6" }
 dependencies = [
     { name = "textual" },
 ]
-
-[package.metadata]
-requires-dist = [{ name = "textual", specifier = ">=3.1.1" }]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pytest", specifier = ">=8.3.5" },
-    { name = "pytest-asyncio", specifier = ">=0.26.0" },
-    { name = "pytest-cov", specifier = ">=6.1.1" },
-    { name = "ruff", specifier = ">=0.11.7" },
-    { name = "semver", specifier = ">=3.0.4" },
-    { name = "textual-dev", specifier = ">=1.7.0" },
-    { name = "toml", specifier = ">=0.10.2" },
-]
-docs = [{ name = "mkdocs", specifier = ">=1.6.1" }]
 
 [[package]]
 name = "textual-notes"
@@ -598,7 +583,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "mongoengine", specifier = ">=0.29.1" },
-    { name = "textual-forms", editable = "../textual-forms" },
+    { name = "textual-forms", git = "https://github.com/holdenweb/textual-forms?rev=r0.7.7" },
 ]
 
 [package.metadata.requires-dev]

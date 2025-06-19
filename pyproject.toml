@@ -9,10 +9,10 @@ dependencies = [
     "textual-forms",
 ]
 
-[tool.uv.sources]
-textual-forms = { path = "../textual-forms", editable = true }
-
 [dependency-groups]
 dev = [
     "textual-dev>=1.7.0",
 ]
+
+[tool.uv.sources]
+textual-forms = { git = "https://github.com/holdenweb/textual-forms.git", rev = "r0.7.7" }
