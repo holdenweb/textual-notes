@@ -1,7 +1,7 @@
 from textual.app import App
 from textual.widgets import Footer, Header
 from note_screen import build_note_screen
-from forms.project import build_project_screen
+from project_screen import build_project_screen
 
 
 class ConsoleApp(App):

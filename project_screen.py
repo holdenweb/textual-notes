@@ -1,7 +1,7 @@
 from typing import Any
 
 from textual import on
-from textual.containers import Vertical
+from textual.containers import VerticalScroll
 from textual.events import Click
 from textual.app import ComposeResult
 from textual.screen import ModalScreen
@@ -39,7 +39,7 @@ def build_project_screen(db_name: str, data: dict[str, Any] = None):
             super().__init__(*args, **kwargs)
 
         def compose(self) -> ComposeResult:
-            with Vertical(id="main-window"):
+            with VerticalScroll(id="main-window"):
                 yield ProjectForm(title="Add Project").render(id="form-container")
 
         @on(Form.Submitted)

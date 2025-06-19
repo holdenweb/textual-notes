@@ -2,7 +2,7 @@
 
 from textual import on
 from textual.app import ComposeResult
-from textual.containers import Vertical
+from textual.containers import VerticalScroll
 from textual.events import Click
 from textual.screen import ModalScreen
 
@@ -46,8 +46,8 @@ def build_note_screen(db_name, data=None):
             super().__init__(*args, **kwargs)
 
         def compose(self) -> ComposeResult:
-            with Vertical(id="main-window"):
-                yield NoteForm(title="Add Project").render(id="form-container")
+            with VerticalScroll(id="main-window"):
+                yield NoteForm(title="Add Note").render(id="form-container")
 
         @on(Form.Submitted)
         def submitted(self, event):
