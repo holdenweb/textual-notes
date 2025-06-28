@@ -6,7 +6,7 @@ from textual.containers import VerticalScroll
 from textual.events import Click
 from textual.screen import ModalScreen
 
-from db import DB
+from textual_notes.db import DB
 from textual_forms import Form, ChoiceField, StringField, TextField
 
 

@@ -2,6 +2,7 @@
 import datetime
 
 import mongoengine as me
+import mongomock as mm
 
 
 class Project(me.Document):
@@ -27,9 +28,17 @@ class DB:
     Database access
     """
 
-    def __init__(self, name):
-        self.db_name = name
-        me.connect(name)
+    def __init__(self, name=None):
+        if name is None:
+            self.db_name = "** Testing **"
+            me.connect(
+                "test_connection",
+                host="mongodb://localhost",
+                mongo_client_class=mm.MongoClient,
+            )
+        else:
+            self.db_name = name
+            me.connect(name)
 
     def project_names(self):
         return [p.name for p in Project.objects.all().order_by("name")]

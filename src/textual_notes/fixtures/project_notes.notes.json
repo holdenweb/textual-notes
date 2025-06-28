@@ -1,0 +1,979 @@
+[{
+  "_id": {
+    "$oid": "6787769682d0050f03135d4b"
+  },
+  "project_name": "dotfiles",
+  "timestamp": {
+    "$date": "2025-01-15T08:49:26.871Z"
+  },
+  "heading": "We'll Get There!",
+  "comments": "Well, let's see.\nThis is, after all,\nthe FOURTH attempt\n..."
+},
+{
+  "_id": {
+    "$oid": "6787d9753019164ccb03bdb2"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-15T15:51:17.368Z"
+  },
+  "heading": "Test 2",
+  "comments": "Just another note. Hopefully after\nI click submit the note will be stored,\nthe window will close and I can run another\ncommand!"
+},
+{
+  "_id": {
+    "$oid": "6787d9cf26f54df9eafeaa1e"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-15T15:52:47.442Z"
+  },
+  "heading": "Test 3",
+  "comments": "Test 2 failed because I was calling\nApp.quit, which doesn't exist :-)."
+},
+{
+  "_id": {
+    "$oid": "6787da0f2da016971e6d6330"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-15T15:53:51.949Z"
+  },
+  "heading": "Test 4",
+  "comments": "Sheesh, when I called exit rather than\nquiot I then discover I was calling it\non the form and not the App. Doh!"
+},
+{
+  "_id": {
+    "$oid": "6787e19f8342110690ac088b"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-15T16:26:07.906Z"
+  },
+  "heading": "Well, it's a project!",
+  "comments": "MVP all committed (which is what's recording this\nnote - look at me eating my own dog food!)"
+},
+{
+  "_id": {
+    "$oid": "6787f2789429045401e81dc1"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-15T17:38:00.832Z"
+  },
+  "heading": "Moving towards database selection",
+  "comments": "The database functionality is now class-based,\nand we're moving towards flexibility."
+},
+{
+  "_id": {
+    "$oid": "67881ce5ad46364bd932fbcd"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-15T20:39:01.183Z"
+  },
+  "heading": "Woot! Change of tooling.",
+  "comments": "After a disagreement between black and the\nreorder-python-imports utility I have abandoned\nboth, along with flake8, in favour of ruff.\n\nIt's a shame the Python world can't get its act\ntogether, but if it means people will build us\nfaster tools in other languages I'm happy to use\nthem and grateful they exist."
+},
+{
+  "_id": {
+    "$oid": "678849e446ccca1f5f16f281"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-15T23:51:00.074Z"
+  },
+  "heading": "No, not black!",
+  "comments": "After some thought I decided I wasn't yet ready to\nabandon black, so it's back for now and we'll see\nwhere we end up."
+},
+{
+  "_id": {
+    "$oid": "6788b63d817a9ad50555b662"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-16T07:33:17.470Z"
+  },
+  "heading": "Feature request",
+  "comments": "It would be at least marginally useful to be able to\nmake repeated entries, by default to the same\nproject. This could be implemented by a \"do another\"\ncheckbox or similar, avoiding the need to rerun the\nprogram repeatedly."
+},
+{
+  "_id": {
+    "$oid": "678943b7023043724a691ba3"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-16T17:36:55.798Z"
+  },
+  "heading": "Just verifying ...",
+  "comments": "That this little note piggy has build\nhis house from bricks. I'm note sure\nquite why such a relatively small\nachievement gives me so much pleasure,\nbut I'm hapy to take it whatever!!"
+},
+{
+  "_id": {
+    "$oid": "67897c43981c7ad7eefc2b43"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-16T21:38:11.971Z"
+  },
+  "heading": "At least things keep moving",
+  "comments": "Another little victory. "
+},
+{
+  "_id": {
+    "$oid": "67897c7225b45c376bd619c5"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-16T21:38:58.353Z"
+  },
+  "heading": "Getting there?",
+  "comments": "As a little break from routine, consider learning\nenough about `rich` to jazz up the output from\nnote_list just a little bit before moving to\nfull markdown?"
+},
+{
+  "_id": {
+    "$oid": "678997728175b71b9ed4ebf4"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-16T23:34:10.174Z"
+  },
+  "heading": "If I develop by rebasing ...",
+  "comments": "... then all the world is puddle-wonderful and everything proceeds along an orderly straight line."
+},
+{
+  "_id": {
+    "$oid": "678a4aa47801ca98e31643ad"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-17T12:18:44.243Z"
+  },
+  "heading": "Home directory field?",
+  "comments": "Adding a `home_dir` (or similarly named) attribute\nwould allow location of the authoritative code\nfor the project.\n\nIt would also be helpful to adopt a directory\nnaming convention that allowed multiple versions\nof the code to exist. For example, using a plus\nsign as a prefix indicator, for the `hu` project\nwe would recognise `hu+1`, `hu+hotfix-23` and\n`hu+next-release` as being based on the project.\n\nSuperficially it's attractive, but some solid use\ncases would avoid wasted efforts."
+},
+{
+  "_id": {
+    "$oid": "678a4b7bab2523e3fe1d484f"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-17T12:22:19.328Z"
+  },
+  "heading": "Release discipline ...",
+  "comments": "... is shitty on this project. Primarily because I\nhave not yet released anything yet, but this note\nis a stake in the ground that the process needs to\nwork as well as Textual's appears to."
+},
+{
+  "_id": {
+    "$oid": "678a4d27cc25e5d3e89cf2c6"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-17T12:29:27.809Z"
+  },
+  "heading": "Argument handling",
+  "comments": "It would be nice to have some convenient way to\nindicate on the command line which project the\ncommand was supposed to work on - though always\nfalling back to whatver default the user has\nestablished if no database (can I find a more\nuser-friendly term?)\n\nSomething simple, since I'd hope most accesses\nwould be via TUIs, but good enough for the odd\nmanagement comand like `db_create`.\n\nQUESTION: who says functions like `db_create` are\nbest done from the command line? It would be good\nto restrict the availability of the TUI but there\nseems no good reason why it couldn't be fitted\ninto a TUI framework."
+},
+{
+  "_id": {
+    "$oid": "678b83b322b02d8f307a2046"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-18T10:34:27.158Z"
+  },
+  "heading": "Simple textual errors I've repeated",
+  "comments": "I find that it's a bit too easy (not textual's fault)\nto install textual outside the correct venv and then\nfail to be found when running commands. This is because\nI'm an idiot and the OS can do little to prevent me\nfrom continually demonstrating that.\n\nI also repeatedly run programs directly instead of with\n`textual --dev` and wonder why no logging output can be\nseen!"
+},
+{
+  "_id": {
+    "$oid": "678b840b0040740eb6a30e8e"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-18T10:35:55.055Z"
+  },
+  "heading": "Capture those thoughts as they go by.",
+  "comments": "Who knows how many fly by without even rising to the\nsurface of our consciousness long enough to actually\nregister. Strange."
+},
+{
+  "_id": {
+    "$oid": "678b9f2fcdb4c93674e754f3"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-18T12:31:43.745Z"
+  },
+  "heading": "Starting with the layout",
+  "comments": "The new maintain.py program is a\nplaceholder skeleton to make sure\nthat basic layout ideas are sound\nstep by step. Consequently the\nstarting model for the layout has\nliteral Placeholder objects as its\nsecond-level components.\n\nIt adopts my usual convention of\nlogging both the DOM structure and\nits associated CSS trees on a click."
+},
+{
+  "_id": {
+    "$oid": "678bcf125db9881ea4956511"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-18T15:56:02.006Z"
+  },
+  "heading": "maintain.py continues to improve",
+  "comments": "The focus on layout-only seems to be paying off, but commits\non the new-layout branch are still too large."
+},
+{
+  "_id": {
+    "$oid": "678c18bf2014c0fa87929ea6"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-18T21:10:23.311Z"
+  },
+  "heading": "This is abuse of the log!",
+  "comments": "But the Apple support call I just made about\nSpotlight indexing is Case ID 102517005800."
+},
+{
+  "_id": {
+    "$oid": "678ce200a8292d4579336308"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-19T11:29:04.214Z"
+  },
+  "heading": "Generic framework operations",
+  "comments": "Guess what - the NoteForm is a dynamic screen,\nwhose `status` pane (i.e. the `info` and `operations`\ncontainers) should therefore be populated and\nmanaged by (a) method(s) of the class on which it\nis operating.\n\nThis implies that the time to populate those\ncontainers is when an object type is selected.\n\nThat should be enough to start fleshing out some\nlogic once some actual controls are in place.\nAlso note that the smart way to do this is to\ninherit from Document and add methods to interact\nwith the framework, then have local documents\ninherit from that. The default methods would simply\nannounce that this document type could not be\nmaintained."
+},
+{
+  "_id": {
+    "$oid": "678d342f400bca449a69c886"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-19T17:19:43.815Z"
+  },
+  "heading": "Could this design eat itself?",
+  "comments": "I was toying with the idea of putting the operation\ndefinitions in the database. I could then use the\nprogram to edit the program. Very meta - but not at\nall impossible!"
+},
+{
+  "_id": {
+    "$oid": "678d3a1613c19852d81487cb"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-19T17:44:54.961Z"
+  },
+  "heading": "Massive screwup on layout, or what?",
+  "comments": "OK, so I wrote logic to show the NoteForm when an\nobject type had been selected, or otherwise to show\na splash screen.\n\nStarting it with no object type now occupies the\nwhole freaking screen with the splash, blotting out\nall other components, when the program starts."
+},
+{
+  "_id": {
+    "$oid": "678f90290ae54f9b8f75368c"
+  },
+  "project_name": "tagset",
+  "timestamp": {
+    "$date": "2025-01-21T12:16:41.550Z"
+  },
+  "heading": "Bringing tagset into the notes fold",
+  "comments": "There's an expressed need for a combo box in the\nTextual toolkit, which they seem to envisage as a\nrefinement of the current `Select` object, which\nto me seems a little clumsy.\n\nConsequently I'm going to polish up the tagset\nrepository, make the demo more easily accessible\nas a virtualenv entry point and see how usable\nit is in the notes project."
+},
+{
+  "_id": {
+    "$oid": "67909ece2b8a05d065994414"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-22T07:31:26.139Z"
+  },
+  "heading": "Mounting does what add_child should",
+  "comments": "It really is remarkably difficult to find out from\nthe `textual` documentation how to add widgets to\na container dynamically.\n\nThe asnwer, as suggested by the heading, is `mount()`."
+},
+{
+  "_id": {
+    "$oid": "6790a691049f5858473a466d"
+  },
+  "project_name": "tagset",
+  "timestamp": {
+    "$date": "2025-01-22T08:04:33.124Z"
+  },
+  "heading": "Need a clean search interface",
+  "comments": "At present the way the `TagSet.update` method works\nis by optionally creating a new set of members (this\nmake creation of new TagSets simpler), and then\nselecting those elements that meet the search\ncriteria.\n\nWhile this works, it means that for the widget to\noperate on collections of records we should really\napply the filter at the point of retrieval and not\nselect all candidates then strip the unwanted ones.\n\nThis still means that we are potentially revtrieving far more items than we can ever\ndisplay at once, which is a separate problem."
+},
+{
+  "_id": {
+    "$oid": "6790b3ab9b3859eea64e416c"
+  },
+  "project_name": "tagset",
+  "timestamp": {
+    "$date": "2025-01-22T09:00:27.534Z"
+  },
+  "heading": "Not quite so easy for Selectors, however",
+  "comments": "The assumption behind a selector is that every\nvalue must appear either in the selected or the\nunselected set. To maintain proper function it\nwould seem necessary to retrieve both sets with\ntwo filters: one is the standard current filtering,\nand the other is a limit to ensure we only retrieve\nwhat needs to be displayed.\n\nHowever this would mean responding to scrolling by\nadding an appropriate offset - and continuous scrolling\nwould then become somewhat tedious.\n\nFor now I intend to ignore these issues, but they\nare real and may at some stage need to be be taken seriously."
+},
+{
+  "_id": {
+    "$oid": "6792d5927099f6bd2cba3f35"
+  },
+  "project_name": "home_asst",
+  "timestamp": {
+    "$date": "2025-01-23T23:49:38.160Z"
+  },
+  "heading": "Progress on light dimming",
+  "comments": "OK, I've got this single-channel LED dimmer, as per\nhttps://www.zigbee2mqtt.io/devices/TS0501B.html, but\nthe simplistic approach to integrating it doesn't\nappear to give access to the state, so I have at\npresent to rely on the built in increase and\ndecrease operations which are insufficiently\ngranular.\n\nYes, this is a new project.\n"
+},
+{
+  "_id": {
+    "$oid": "6793a5116ec94a1a79ba9e54"
+  },
+  "project_name": "home_asst",
+  "timestamp": {
+    "$date": "2025-01-24T14:34:57.474Z"
+  },
+  "heading": "Webhooks could be useful",
+  "comments": "According to https://www.home-assistant.io/docs/automation/trigger/#webhook-trigger a URL of the form <HA>/apps/webhook/<hook-id> will act as an automation trigger once `hook-id` is registered\nas a trigger of type webhook:\n\n```\nautomation:\n  triggers:\n    - trigger: webhook\n      webhook_id: \"some_hook_id\"\n      allowed_methods:\n        - POST\n        - PUT\n      local_only: true\n```"
+},
+{
+  "_id": {
+    "$oid": "67949728eb3f6feb2c99e69b"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-25T07:47:52.676Z"
+  },
+  "heading": "Checking Positioning",
+  "comments": "I need to do an experiment with the screens,\nto verify I can aboslutely position an element\nat the top left corner of the screen."
+},
+{
+  "_id": {
+    "$oid": "6795165c997b90de31aed0d7"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-25T16:50:36.947Z"
+  },
+  "heading": "7c3a6b357db4a3bc0f35ee9a61aa0a10b3482b3d",
+  "comments": "The above proof of concept shows a transparent\noverlay screen with absolute positioning of a\nfurther element inside it. By reading the position\nof an object on the main screen and using its\ntop left co-ordinates on the superimposed screen\n(module any close approach to the screen edges,\nwhich can be taken into account later).\n\nThe concept is proven: now implemwent it in\nproduction"
+},
+{
+  "_id": {
+    "$oid": "6795fdb6628d0ad747f450e7"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-26T09:17:42.120Z"
+  },
+  "heading": "Access to objects on stacked screens",
+  "comments": "I'm currently struggling to maintain proper\ncommunication lines within the program. I'm\ncurrently passing the widget that I want the\ntagset to overlay as a parameter to the\ntransparent screen I push to display it on."
+},
+{
+  "_id": {
+    "$oid": "67960ceda3887f5421962b3f"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-26T10:22:37.763Z"
+  },
+  "heading": "Typical sloppiness",
+  "comments": "Just had a test run fail becausae, while I had\ncorrectly modified a class to call its superclass\nmethod with an argument, I then added the argument\nto the wrong call in the client code. Sigh."
+},
+{
+  "_id": {
+    "$oid": "67960ff90c184f52b1d8396c"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-26T10:35:37.055Z"
+  },
+  "heading": "Too complicated",
+  "comments": "It seems I'm making things more difficult for myself\nby not decomposing the problem sufficiently well."
+},
+{
+  "_id": {
+    "$oid": "6796106da6e7ef5522fc1ae8"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-01-26T10:37:33.021Z"
+  },
+  "heading": "Stop pursuing a chimera ...",
+  "comments": "... and instead go back to enhancing the `textual`\nSelect object with a combibox option."
+},
+{
+  "_id": {
+    "$oid": "679abb19308148ecf4dead84"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-01-29T23:34:49.154Z"
+  },
+  "heading": "Getting there, but need to rationalise structure",
+  "comments": "Everything seems to be crying out to make the `dist`\ndirectory the root of the site. Think about this!!"
+},
+{
+  "_id": {
+    "$oid": "679ad22b6037b1f0c09a018c"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-01-30T01:13:15.663Z"
+  },
+  "heading": "Questions re: d3c5e3be9cee754507ce8c177a8a165a197c9cf5",
+  "comments": "1. Where are the headings disappearing to?!\n2. Why is that bloody JavaScript code reporting errors (see console)??\n\n With deepseek's help I have at least made some progress and am seeing styledpages - hald the battle is won!!"
+},
+{
+  "_id": {
+    "$oid": "679ad4592f710bc4fee3a78e"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-01-30T01:22:33.498Z"
+  },
+  "heading": "Things are better than I thought!",
+  "comments": "It turns out the reason some elements weren't visible\nwas because of the adaptive design, which switched to a smaller screen when the browser debug pane was open. Doh!"
+},
+{
+  "_id": {
+    "$oid": "679ad903ea3eb34926066919"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-01-30T01:42:27.326Z"
+  },
+  "heading": "When will I learn?",
+  "comments": "So I had a site that actually produced styled\noutput. Why didn't I check the fucking thing in?\n\nNow see where you are."
+},
+{
+  "_id": {
+    "$oid": "679b6062d0fe5dece5563f0c"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-01-30T11:20:02.814Z"
+  },
+  "heading": "Project structure now saner",
+  "comments": "Commit c4b02ecfd3569222dafded96cd1c8abe0598351f\n\nWell, the current state is we're getting a home page\nwith Jinja2 substitutions, as specified in the pug\ntemplate, and the default route appears to be\ncatching otherwise unspecified routes."
+},
+{
+  "_id": {
+    "$oid": "67a0e32791aed580698983f8"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-02-03T15:39:19.717Z"
+  },
+  "heading": "Refactored or not?",
+  "comments": "It woud seem ValidationError exception handling\nleaves a lot to be desired.\n\nNever mind, let's try a record that has data."
+},
+{
+  "_id": {
+    "$oid": "67a0e47e31d0d47596b5e998"
+  },
+  "project_name": "kauri",
+  "timestamp": {
+    "$date": "2025-02-03T15:45:02.223Z"
+  },
+  "heading": "",
+  "comments": ""
+},
+{
+  "_id": {
+    "$oid": "67a0e58168a509c0e5377a3e"
+  },
+  "project_name": "dotfiles",
+  "timestamp": {
+    "$date": "2025-02-03T15:49:21.322Z"
+  },
+  "heading": "Is this the one?",
+  "comments": ""
+},
+{
+  "_id": {
+    "$oid": "67a4015b6d3f941989cca7aa"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-02-06T00:24:59.129Z"
+  },
+  "heading": "End of Project",
+  "comments": "I have now relocated the domain name Service for shortlands.com to Den's collaborator, so the project is from the customer's point of view effectively over. However, it remains as a testbed for the spreadsheet extraction project."
+},
+{
+  "_id": {
+    "$oid": "67a46c77767d52ab6009b61f"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-02-06T08:01:59.966Z"
+  },
+  "heading": "Keypad it!",
+  "comments": "Things are slowly improving. You need to be able to keep on keeping on. This is ridiculous. I can't get it to make new paragraphs when I'm dictating. How about punctuation? Usable but not brilliant.\n"
+},
+{
+  "_id": {
+    "$oid": "67a476e176a49912038e4797"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-02-06T08:46:25.230Z"
+  },
+  "heading": "Named Ranges",
+  "comments": "Both the workbook as a whole and each sheet has a\ndefined_names property that lists the global or\nlocal ranges. I haven't investigated name clashes.\n\nThis shows that multiple ranges are collected in a\ncomma-separated string in the range's `attr_text`\nattribute. In the \"ExcelCreated\" spreadsheet there\nare two global names (\"Parameters\" and \"MultiRange\"), and one sheet-local one, \"Local.\"\n\nHere's what they look like:\n\n```\nworkbook.defined_names.keys()workbook.defined_names\n{'MultiRange': <openpyxl.workbook.defined_name.DefinedName object>\nParameters:\nname='MultiRange', comment=None, customMenu=None, description=None, help=None, statusBar=None, localSheetId=None, hidden=None, function=None, vbProcedure=None, xlm=None, functionGroupId=None, shortcutKey=None, publishToServer=None, workbookParameter=None, attr_text='Sheet1!$D$4:$E$14,Sheet1!$G$4:$H$14,Sheet1!$J$4,_xlfn.ANCHORARRAY(Sheet1!$J$4:$K$14)', 'Parameters': <openpyxl.workbook.defined_name.DefinedName object>\nParameters:\nname='Parameters', comment=None, customMenu=None, description=None, help=None, statusBar=None, localSheetId=None, hidden=None, function=None, vbProcedure=None, xlm=None, functionGroupId=None, shortcutKey=None, publishToServer=None, workbookParameter=None, attr_text='Sheet1!$A$1:$B$14'}\n\ns = workbook.get_sheet_by_name('Sheet1')\ns.defined_names\n{'Local': <openpyxl.workbook.defined_name.DefinedName object>\nParameters:\nname='Local', comment='Comment: just for this sheet', customMenu=None, description=None, help=None, statusBar=None, localSheetId=0, hidden=None, function=None, vbProcedure=None, xlm=None, functionGroupId=None, shortcutKey=None, publishToServer=None, workbookParameter=None, attr_text='Sheet1!$A$1'}\n```"
+},
+{
+  "_id": {
+    "$oid": "67a4840a8bb3a9dad671ac5f"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-02-06T09:42:34.887Z"
+  },
+  "heading": "Cell ranges",
+  "comments": "Subscription a sheet with an Excel-like range\nstring conveniently returns a tuple of rows,\neach row being a tuple of cells. That seems to work really nicely."
+},
+{
+  "_id": {
+    "$oid": "67ab43ca158f5bf3d288c228"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-02-11T12:34:18.685Z"
+  },
+  "heading": "Common Table Expressions (CTEs)",
+  "comments": "TIL that a CTE allows you to factor out a query,\ngive it a name and re-use it efficiently multiple\ntimes within the same query.\n\nMore at https://www.geeksforgeeks.org/cte-in-sql/"
+},
+{
+  "_id": {
+    "$oid": "67ab609bb745395eea321f4d"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-02-11T14:37:15.359Z"
+  },
+  "heading": "This was an interesting experiment",
+  "comments": "I learned about PUG, which has value to me as a\npotential small web host or even just for my own\npurposes.\nI also ran into a few snags with qs, not least the\nabsence of any documented help anywhere."
+},
+{
+  "_id": {
+    "$oid": "67ac667a7c7e1f492df26e9d"
+  },
+  "project_name": "ops",
+  "timestamp": {
+    "$date": "2025-02-12T09:14:34.371Z"
+  },
+  "heading": "Welcome to the operations project (ops)",
+  "comments": "This is to record how I do things for myself, data\nwhich should eventually make its way into a proper\noperations manual.\n\nNo rules except record the information!"
+},
+{
+  "_id": {
+    "$oid": "67ac7d7de258cfc30cc2bf38"
+  },
+  "project_name": "ops",
+  "timestamp": {
+    "$date": "2025-02-12T10:52:45.450Z"
+  },
+  "heading": "Hoe do I establish a new repo on git.local?",
+  "comments": "I know I've done it manually, but have a feeling I\nalso wrote some code to automate the process from\nclient side. That needs to be repeatable."
+},
+{
+  "_id": {
+    "$oid": "67ac8aceb579bb7c41717fd3"
+  },
+  "project_name": "ops",
+  "timestamp": {
+    "$date": "2025-02-12T11:49:34.918Z"
+  },
+  "heading": "Should definitely think about uv",
+  "comments": "I now have ~1.5GB of poetry venvs and growing.\nThey are not in any way managed. If the venv\ndisappears then the entry points from it also\nstop working.\n\n[This question](https://stackoverflow.com/questions/79118841/how-to-migrate-from-poetry-to-uv-package-manager)\nindicates possible migration paths.\nStart with something that actually uses entry\npoints, like quicksite."
+},
+{
+  "_id": {
+    "$oid": "67acc0b3322ff9b6cf97a997"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-02-12T15:39:31.365Z"
+  },
+  "heading": "The hubris package lives: vectors",
+  "comments": "For convenience, however, I will continue to document it here until I wrap shotlnds and mothball it.\n\nA 1 x n vector appears as a single-element list.\nAn n x 1 vector appears as a list of single-element lists.\nBoth will be flattened to a simple list.\n"
+},
+{
+  "_id": {
+    "$oid": "67ad40f3327962495a6e23b8"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-02-13T00:46:43.800Z"
+  },
+  "heading": "Automating branch push targets",
+  "comments": "To have all repos automatically associate with the\nsame branch on remote repositories, apply this\ngit settings change.\n\n`git config --global push.autoSetupRemote true`"
+},
+{
+  "_id": {
+    "$oid": "67b4834fe7df732152483e67"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-02-18T12:55:43.816Z"
+  },
+  "heading": "When can I upgrade the dog food?",
+  "comments": "I've added a few nice features since the last release, but at present the button handling needs to be completed.\n\nOnce that's done, I can release the current version\nand think about how to add new projects from within\nthis tool. Which may mean pushing a screen. I remember learning how to do that, many moons ago!"
+},
+{
+  "_id": {
+    "$oid": "67b57e13b9666bfeb1f14d4d"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-02-19T06:45:39.233Z"
+  },
+  "heading": "Ready for new release?",
+  "comments": "Due to the refactoring of the functionality, I will have to redefine the `note` entry point to action the app - which in turn may require further refactoring."
+},
+{
+  "_id": {
+    "$oid": "67b581bd110c46813216489c"
+  },
+  "project_name": "ops",
+  "timestamp": {
+    "$date": "2025-02-19T07:01:17.226Z"
+  },
+  "heading": "Regularising things",
+  "comments": "Starting a new project should add all I need - git, poetry, ruff, the works, to provide all the infrastructure that I normally add bit by bit."
+},
+{
+  "_id": {
+    "$oid": "67b66a4a26d5d5e1f823c737"
+  },
+  "project_name": "shotlands",
+  "timestamp": {
+    "$date": "2025-02-19T23:33:30.347Z"
+  },
+  "heading": "",
+  "comments": ""
+},
+{
+  "_id": {
+    "$oid": "67b67265f389d36f1818bb4f"
+  },
+  "project_name": "<new>",
+  "timestamp": {
+    "$date": "2025-02-20T00:08:05.042Z"
+  },
+  "heading": "",
+  "comments": ""
+},
+{
+  "_id": {
+    "$oid": "67b680f7bc906f2b3d32ea06"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-02-20T01:10:15.944Z"
+  },
+  "heading": "Why I switched to zsh",
+  "comments": "I switched to zsh beacuse it seemed better than bash. But what I hadn't realised (until a desire to install [kitten](https://kitten.small-web.org/) arose) that I was judging bash based on the c.2007 release I'd been using from the MacOS /usr/bin/bash.\n\nI've now run `curl -sL https://kittens.small-web.org/install | bash` as recommended, and my bash version has jumped from 3.2.57 to 5.2.37, a somewhat odd numerological coincidence. How much of an improvement this might be I am unable to say, as I became a zsh user a few months after Apple switched to it as the default MacOS shell, so I no longer use bash."
+},
+{
+  "_id": {
+    "$oid": "67b9a892e8004fad92d99faf"
+  },
+  "project_name": "new project",
+  "timestamp": {
+    "$date": "2025-02-22T10:36:02.915Z"
+  },
+  "heading": "This can be deleted",
+  "comments": "But it may not be, because there's nothing automatic that will take that action."
+},
+{
+  "_id": {
+    "$oid": "67bf2be447113e9c663e0d2f"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-02-26T14:57:40.216Z"
+  },
+  "heading": "Django forms can't render themselves",
+  "comments": "As far as I can see, anyway, though there's always a chance I'm missing something. But one might expect some easy way to catr to the naiive beginner."
+},
+{
+  "_id": {
+    "$oid": "67c8756217ca3a4829a7995f"
+  },
+  "project_name": "filescan",
+  "timestamp": {
+    "$date": "2025-03-05T16:01:38.583Z"
+  },
+  "heading": "The `filescan` project joins notes",
+  "comments": "This is the first project I haven't needed to create manually in MongoDB Compass, so I'm a happy chap.\n\nFilescan is now running irregularly. It would make sense to sync with a remote filestore (providing backup) and then analyse the remote copy, detaching that task from my laptop.\n\nBeing able to download a copy of the database to use in local querying would perhaps be interesting."
+},
+{
+  "_id": {
+    "$oid": "67f2415e94f74157a54366d0"
+  },
+  "project_name": "filescan",
+  "timestamp": {
+    "$date": "2025-04-06T09:54:54.811Z"
+  },
+  "heading": "Archive records being incorrectly formulated",
+  "comments": "This is a pain. In the `test_archive` routine I find\nthat the `Archive` objects don't appear to be\ncreated correctly.\n\nWhen tracing the execution of the `archive_record`\nfunction I confirmed that the object has a `runlog`\nattribute immediately after creation.\n\nThe Archive object is at 0x103d72780 and the RunLog\nobject at 0x103d09a00, implying it was created a\nlittle earlier.\n\nI then discovered that `db.session.execute(select(Archive)).all()` returns a list, not of Archive objecgts, but a list of tuples whose first (and only) elements\nare Archive objects.\n\nClearly I need to understand more about what is\ngoing on here!"
+},
+{
+  "_id": {
+    "$oid": "67f24e3f00238b0377a0f148"
+  },
+  "project_name": "filescan",
+  "timestamp": {
+    "$date": "2025-04-06T10:49:51.036Z"
+  },
+  "heading": "Bogus Archive rows being created",
+  "comments": "After creating a new database and running filescan\nonce (revealing 98 new files) I discovered 19 rows\nin the RunLog table (with PKs starting at 2, which\nI find odd, but :shrug:), with ascending `when_run`\nvalues, all but the last having null `when_finished`\nvalues.\n\nA first glance suggests that a new row is being\ncreated for each directory encountered."
+},
+{
+  "_id": {
+    "$oid": "68077f3a9c876e1a84e2bd90"
+  },
+  "project_name": "textual-forms",
+  "timestamp": {
+    "$date": "2025-04-22T12:36:26.309Z"
+  },
+  "heading": "Recasting as an object that can render when required",
+  "comments": "Rather than having the Form be a container, Will\nMcGugan suggested that I consider having it be\nan object in its own right with a method that\nproduces a renderable widget.\n\nSo I'm currently trying to model that, and getting\ntangled up in class hierarchies."
+},
+{
+  "_id": {
+    "$oid": "68089ae577254fc5e05304aa"
+  },
+  "project_name": "textual-forms",
+  "timestamp": {
+    "$date": "2025-04-23T08:46:45.315Z"
+  },
+  "heading": "Difficulties getting uv to package correctly",
+  "comments": "At present I'm still looking for the uv equivalent of\n```\npackages = [\n    { include = \"textual_forms\", from = \"src\" },\n]\n```\n\nwhich causes poetry to build correctly. uv, however,\ncontinues to include everything from the project's\nbase directory!"
+},
+{
+  "_id": {
+    "$oid": "680e06d83b97bd5a6fdef925"
+  },
+  "project_name": "textual-forms",
+  "timestamp": {
+    "$date": "2025-04-27T11:28:40.760Z"
+  },
+  "heading": "Getting there, but slowly",
+  "comments": "I'd forgotten how slow the early phases of design\ncan be, having not built anything of significance\nfor some time.\n\nJust the same, things are coming together.\nThe latest breakthrough was to have the form\nwidgets simply be extended versions of the widget\ntheir field requires, which means they retain all\nthe expected behaviour of the component.\n\nThis has reduced the code considerably, always a\ngood sign, and highlighted a problem creating\nthe widgets inside the field's `__init__` - I\nwas calling `field.default_value` but I've\nimplemented the method on the widgets!"
+},
+{
+  "_id": {
+    "$oid": "68249f9c64b28031924ac618"
+  },
+  "project_name": "newsfeeds",
+  "timestamp": {
+    "$date": "2025-05-14T14:50:20.358Z"
+  },
+  "heading": "How to hash for an ObjectId",
+  "comments": "If you want determinism, use some unique content string hashed to 12 bytes as an argument to the `bson.obnjectid.ObjectId` instantiation.\n\n```\n>>> h = shake_128(\"hello, world!\".encode(\"utf-8\")).digest(12)\n>>> h\nb'f\\x022\\xdflt\\xad\\x19\\xed\\x93q\\xda'\n>>> ObjectId(h)\nObjectId('660232df6c74ad19ed9371da')\n```"
+},
+{
+  "_id": {
+    "$oid": "684d1f9accf11651a52f61e9"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-06-14T08:07:06.676Z"
+  },
+  "heading": "We are getting close!",
+  "comments": "There has been a lot of trouble with rendering the bloody form -\nit seems like timing is very important.\n\nAlso, Forms really need to be wrapped up in some kind of\nscreen, which can be popped after querying, to make the\neperience a bit more manageable.\n\nBut first let's get the data refresh issue sorted."
+},
+{
+  "_id": {
+    "$oid": "684d3f6b3dbf062acd8ed714"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-06-14T10:22:51.992Z"
+  },
+  "heading": "`uv pip` can mislead the unwary",
+  "comments": "I just spent a ton of time trying to work out why `uv pip install --editable ../textual-forms`\nwasn't working in the notes project. Turns out `uv add --editable` was what I really needed."
+},
+{
+  "_id": {
+    "$oid": "684da5dc4efcfed37352c8d3"
+  },
+  "project_name": "textual-forms",
+  "timestamp": {
+    "$date": "2025-06-14T17:39:56.344Z"
+  },
+  "heading": "Forms will soon be under control",
+  "comments": "I think I'm now homing in on the way to manage this.\nThe concept that's forming (geddit?) is the FormScreen!"
+},
+{
+  "_id": {
+    "$oid": "684dcd9a5f79a233d63a0606"
+  },
+  "project_name": "textual-forms",
+  "timestamp": {
+    "$date": "2025-06-14T20:29:30.682Z"
+  },
+  "heading": "Still",
+  "comments": "Trying"
+},
+{
+  "_id": {
+    "$oid": "684e771ed78808f513a040bd"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-06-15T08:32:46.689Z"
+  },
+  "heading": "Keep working!",
+  "comments": "This is just a piece of encouragement - don't give up when\nyou have already achieved so much!"
+},
+{
+  "_id": {
+    "$oid": "684e77c85c6a378f2a226ce5"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-06-15T08:35:36.992Z"
+  },
+  "heading": "Getting there!",
+  "comments": "I hope this was saved ..."
+},
+{
+  "_id": {
+    "$oid": "684eb1e72d689765e8ebc7c4"
+  },
+  "project_name": "ops",
+  "timestamp": {
+    "$date": "2025-06-15T12:43:35.912Z"
+  },
+  "heading": "Test note to verify BSOD screen no longer required",
+  "comments": "No other comment required."
+},
+{
+  "_id": {
+    "$oid": "684eb48f513b3af723890e44"
+  },
+  "project_name": "kauri",
+  "timestamp": {
+    "$date": "2025-06-15T12:54:55.381Z"
+  },
+  "heading": "kkkk",
+  "comments": "kkkkkkkk"
+},
+{
+  "_id": {
+    "$oid": "684eb55ea29d6d8e50dcc7dc"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-06-15T12:58:22.022Z"
+  },
+  "heading": "§nnnn§",
+  "comments": "§nnnnn§1§1§1§1§1§1"
+},
+{
+  "_id": {
+    "$oid": "684eee837f737c4572633cd8"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-06-15T17:02:11.032Z"
+  },
+  "heading": "That I'm confused",
+  "comments": "But an _accurate_ map of the app, screen and form relationships\nin a typical textual app might be helpful."
+},
+{
+  "_id": {
+    "$oid": "684eef2de0d6b4d6fb6502c6"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-06-15T17:05:01.912Z"
+  },
+  "heading": "Look! It runs!",
+  "comments": "And even stores data in the database. Tadaa!"
+},
+{
+  "_id": {
+    "$oid": "684fd26ebf9cba00452b048f"
+  },
+  "project_name": "dotfiles",
+  "timestamp": {
+    "$date": "2025-06-16T09:14:38.905Z"
+  },
+  "heading": "Dotfiles? Wow, that's an old project!",
+  "comments": "But an important one that I should gove higher priority."
+},
+{
+  "_id": {
+    "$oid": "6850254dc9b9b1bb265b2135"
+  },
+  "project_name": "ops",
+  "timestamp": {
+    "$date": "2025-06-16T15:08:13.500Z"
+  },
+  "heading": "x",
+  "comments": "Test - delete!"
+},
+{
+  "_id": {
+    "$oid": "685193014afeb0a709f9c37e"
+  },
+  "project_name": "notes",
+  "timestamp": {
+    "$date": "2025-06-17T17:08:33.777Z"
+  },
+  "heading": "It's getting to the exciting stage now",
+  "comments": "Wowser, soon I'll be able to manage both projects and notes\nwith equal facility, and when the structure is fully refactored\nit will \"only\" remain to create the sqlite data backend\nto provide a somewhat usable demonstrator."
+},
+{
+  "_id": {
+    "$oid": "6851a76b4f989dfbf0125a3f"
+  },
+  "project_name": "new_project_6",
+  "timestamp": {
+    "$date": "2025-06-17T18:35:39.460Z"
+  },
+  "heading": "Well looks like it works!",
+  "comments": "This is an excellent time to go for a walk!!!"
+},
+{
+  "_id": {
+    "$oid": "6853228d39716faa44581951"
+  },
+  "project_name": "newsfeeds",
+  "timestamp": {
+    "$date": "2025-06-18T21:33:17.904Z"
+  },
+  "heading": "Time to shit or get off the pot?",
+  "comments": "Is this going anywhere?"
+},
+{
+  "_id": {
+    "$oid": "685324a6c94c806742b6694e"
+  },
+  "project_name": "dotfiles",
+  "timestamp": {
+    "$date": "2025-06-18T21:42:14.222Z"
+  },
+  "heading": "Think bigger",
+  "comments": "I really need a better way to get all this ad hoc stuff\nunder control so I can write about/monetise it."
+},
+{
+  "_id": {
+    "$oid": "6853ce852ff76efb8d8e1dbc"
+  },
+  "project_name": "TIL",
+  "timestamp": {
+    "$date": "2025-06-19T09:47:01.741Z"
+  },
+  "heading": "",
+  "comments": ""
+},
+{
+  "_id": {
+    "$oid": "685480dfe57f7ea67d389bd4"
+  },
+  "project_name": "dotfiles",
+  "timestamp": {
+    "$date": "2025-06-19T22:27:59.715Z"
+  },
+  "heading": "This is a heading",
+  "comments": "And this is the description."
+}]

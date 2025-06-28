@@ -2,6 +2,7 @@ from textual.app import App
 from textual.widgets import Footer, Header
 from note_screen import build_note_screen
 from project_screen import build_project_screen
+from textual_notes.load_data import load_data
 
 
 class ConsoleApp(App):
@@ -27,6 +28,11 @@ class ConsoleApp(App):
         yield Footer()
 
 
-if __name__ == "__main__":
+def main():
     app = ConsoleApp()
+    load_data()
     app.run()
+
+
+if __name__ == "__main__":
+    main()

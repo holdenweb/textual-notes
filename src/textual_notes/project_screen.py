@@ -9,7 +9,7 @@ from textual.validation import ValidationResult, Validator
 
 from textual_forms import Form, StringField, TextField
 
-from db import DB
+from textual_notes.db import DB
 
 
 class NonEmpty(Validator):
