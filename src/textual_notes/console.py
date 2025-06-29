@@ -1,7 +1,7 @@
 from textual.app import App
 from textual.widgets import Footer, Header
-from note_screen import build_note_screen
-from project_screen import build_project_screen
+from .note_screen import build_note_screen
+from .project_screen import build_project_screen
 from textual_notes.load_data import load_data
 
 
