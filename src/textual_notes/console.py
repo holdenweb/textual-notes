@@ -4,7 +4,8 @@ from textual import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
-from textual.widgets import DataTable, Footer, Header, Label
+from textual.events import Key
+from textual.widgets import DataTable, Footer, Header, Input, Label
 
 from .db import DB
 from .load_data import load_data
@@ -45,6 +46,10 @@ class ConsoleApp(App):
         color: $text;
         padding: 0 1;
     }
+    #project-filter, #note-filter {
+        display: none;
+        height: 1;
+    }
     DataTable {
         height: 1fr;
     }
@@ -54,6 +59,7 @@ class ConsoleApp(App):
         Binding("n", "new_item", "New"),
         Binding("e", "edit_item", "Edit"),
         Binding("d", "delete_item", "Delete"),
+        Binding("s", "search", "Search"),
         Binding("q", "quit", "Quit"),
     ]
 
@@ -61,15 +67,20 @@ class ConsoleApp(App):
         super().__init__()
         self.db = DB(db_name)
         self._current_project_name: str | None = None
+        # Caches for search/filter
+        self._project_rows: list[dict] = []
+        self._note_rows: list[dict] = []
 
     def compose(self) -> ComposeResult:
         yield Header(show_clock=True)
         with Horizontal(id="main-panes"):
             with Vertical(id="project-pane"):
                 yield Label("Projects", id="project-title")
+                yield Input(placeholder="Filter projects...", id="project-filter")
                 yield DataTable(id="project-table", cursor_type="row")
             with Vertical(id="note-pane"):
                 yield Label("Notes", id="note-title")
+                yield Input(placeholder="Filter notes...", id="note-filter")
                 yield DataTable(id="note-table", cursor_type="row")
         yield Footer()
 
@@ -92,17 +103,24 @@ class ConsoleApp(App):
     def _refresh_projects(self) -> None:
         table = self.query_one("#project-table", DataTable)
         table.clear()
+        self._project_rows = []
         for project in self.db.get_projects():
-            table.add_row(
-                project.name or "",
-                project.homedir or "",
-                key=project.name,
-            )
+            row = {
+                "name": project.name or "",
+                "homedir": project.homedir or "",
+                "description": project.description or "",
+                "key": project.name,
+            }
+            self._project_rows.append(row)
+            table.add_row(row["name"], row["homedir"], key=row["key"])
+        # Clear any active filter
+        self._hide_filter_widget("project-filter")
 
     def _refresh_notes(self) -> None:
         table = self.query_one("#note-table", DataTable)
         title = self.query_one("#note-title", Label)
         table.clear()
+        self._note_rows = []
 
         if self._current_project_name is None:
             title.update("Notes")
@@ -111,15 +129,148 @@ class ConsoleApp(App):
         title.update(f"Notes for: {self._current_project_name}")
         for note in self.db.get_notes_for_project(self._current_project_name):
             ts = note.timestamp.strftime("%Y-%m-%d %H:%M") if note.timestamp else ""
-            comments = (note.comments or "").replace("\n", " ")
-            if len(comments) > 60:
-                comments = comments[:57] + "..."
+            comments_full = note.comments or ""
+            comments_display = comments_full.replace("\n", " ")
+            if len(comments_display) > 60:
+                comments_display = comments_display[:57] + "..."
+            row = {
+                "heading": note.heading or "",
+                "ts": ts,
+                "comments_display": comments_display,
+                "comments_full": comments_full,
+                "key": str(note.id),
+            }
+            self._note_rows.append(row)
             table.add_row(
-                note.heading or "",
-                ts,
-                comments,
-                key=str(note.id),
+                row["heading"], row["ts"], row["comments_display"], key=row["key"]
             )
+        # Clear any active filter
+        self._hide_filter_widget("note-filter")
+
+    # ── Search / filter ────────────────────────────────────
+
+    def action_search(self) -> None:
+        """Show the filter bar for the focused pane."""
+        table_id = self._focused_table_id()
+        if table_id == "project-table":
+            filt = self.query_one("#project-filter", Input)
+        elif table_id == "note-table":
+            filt = self.query_one("#note-filter", Input)
+        else:
+            return
+        filt.display = True
+        filt.value = ""
+        filt.focus()
+
+    def _hide_filter_widget(self, filter_id: str) -> None:
+        """Hide a filter Input and clear its value (no-op if not mounted)."""
+        try:
+            filt = self.query_one(f"#{filter_id}", Input)
+            filt.value = ""
+            filt.display = False
+        except Exception:
+            pass
+
+    @on(Input.Changed, "#project-filter")
+    def filter_projects(self, event: Input.Changed) -> None:
+        term = event.value.strip().lower()
+        self._apply_project_filter(term)
+
+    @on(Input.Changed, "#note-filter")
+    def filter_notes(self, event: Input.Changed) -> None:
+        term = event.value.strip().lower()
+        self._apply_note_filter(term)
+
+    def _apply_project_filter(self, term: str) -> None:
+        table = self.query_one("#project-table", DataTable)
+        table.clear()
+        if not term:
+            # Show all rows in original order
+            for row in self._project_rows:
+                table.add_row(row["name"], row["homedir"], key=row["key"])
+            return
+
+        def score(row):
+            s = 0
+            if term in row["name"].lower():
+                s += 2
+            if term in row["description"].lower():
+                s += 1
+            return s
+
+        matches = [
+            (row, score(row))
+            for row in self._project_rows
+            if term in row["name"].lower()
+            or term in row["homedir"].lower()
+            or term in row["description"].lower()
+        ]
+        matches.sort(key=lambda x: x[1], reverse=True)
+        for row, _ in matches:
+            table.add_row(row["name"], row["homedir"], key=row["key"])
+
+    def _apply_note_filter(self, term: str) -> None:
+        table = self.query_one("#note-table", DataTable)
+        table.clear()
+        if not term:
+            for row in self._note_rows:
+                table.add_row(
+                    row["heading"],
+                    row["ts"],
+                    row["comments_display"],
+                    key=row["key"],
+                )
+            return
+
+        def score(row):
+            s = 0
+            if term in row["heading"].lower():
+                s += 2
+            if term in row["comments_full"].lower():
+                s += 1
+            return s
+
+        matches = [
+            (row, score(row))
+            for row in self._note_rows
+            if term in row["heading"].lower() or term in row["comments_full"].lower()
+        ]
+        matches.sort(key=lambda x: x[1], reverse=True)
+        for row, _ in matches:
+            table.add_row(
+                row["heading"],
+                row["ts"],
+                row["comments_display"],
+                key=row["key"],
+            )
+
+    @on(Input.Submitted, "#project-filter")
+    @on(Input.Submitted, "#note-filter")
+    def on_filter_submitted(self, event: Input.Submitted) -> None:
+        """Enter in the filter bar → dismiss it."""
+        self._dismiss_filter(event.input)
+
+    def on_key(self, event: Key) -> None:
+        """Escape in the filter bar → dismiss it."""
+        if event.key == "escape":
+            focused = self.focused
+            if isinstance(focused, Input) and focused.id in (
+                "project-filter",
+                "note-filter",
+            ):
+                event.prevent_default()
+                self._dismiss_filter(focused)
+
+    def _dismiss_filter(self, input_widget: Input) -> None:
+        """Hide the filter, show all rows, refocus the table."""
+        input_widget.value = ""
+        input_widget.display = False
+        if input_widget.id == "project-filter":
+            self._apply_project_filter("")
+            self.query_one("#project-table", DataTable).focus()
+        else:
+            self._apply_note_filter("")
+            self.query_one("#note-table", DataTable).focus()
 
     # ── Event handlers ─────────────────────────────────────
 
