@@ -1,33 +1,30 @@
+from __future__ import annotations
+
 from typing import Any
 
 from textual import on
-from textual.containers import VerticalScroll
-from textual.events import Click
 from textual.app import ComposeResult
 from textual.screen import ModalScreen
-from textual.validation import ValidationResult, Validator
 
-from textual_forms import Form, StringField, TextField
+from forms_engine.mongoengine import ModelForm
+from textual_wtf import BaseForm, TextField
 
-from textual_notes.db import DB
-
-
-class NonEmpty(Validator):
-    def validate(self, value) -> ValidationResult:
-        return self.success() if value else self.failure("Cannot be empty")
+from .db import DB, Project
 
 
-def build_project_screen(db_name: str, data: dict[str, Any] = None):
-    db = DB(db_name)
+class ProjectForm(ModelForm):
+    description = TextField("Description")
 
-    class ProjectForm(Form):
-        name = StringField(placeholder="Project Name")
-        homedir = StringField(placeholder="Home Directory")
-        description = TextField()
+    class Meta:
+        model = Project
+        exclude = ["timestamp"]
+        labels = {"name": "Project Name", "homedir": "Home Directory"}
 
+
+def build_project_screen(db: DB, edit_data: dict[str, Any] | None = None):
     class ProjectScreen(ModalScreen):
         DEFAULT_CSS = """
-#main-window {
+ProjectScreen {
     align: center middle;
 }
 #form-container {
@@ -35,27 +32,24 @@ def build_project_screen(db_name: str, data: dict[str, Any] = None):
 }
 """
 
-        def __init__(self, project=None, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-
         def compose(self) -> ComposeResult:
-            with VerticalScroll(id="main-window"):
-                yield ProjectForm(title="Add Project").render(id="form-container")
+            if edit_data:
+                form = ProjectForm(data=edit_data, title="Edit Project")
+            else:
+                form = ProjectForm(title="New Project")
+            yield form.layout(id="form-container")
 
-        @on(Form.Submitted)
+        @on(BaseForm.Submitted)
         def submitted(self, event):
-            "Handle submission of a validated form."
             data = event.form.get_data()
-            db.save_project(**data)
+            if edit_data:
+                db.update_project(edit_data["name"], **data)
+            else:
+                db.save_project(**data)
             self.dismiss(data)
 
-        @on(Form.Cancelled)
+        @on(BaseForm.Cancelled)
         def cancelled(self, event):
             self.dismiss(None)
-
-        @on(Click)  # For debug only
-        def click_response(self, e):
-            self.log(self.tree)
-            self.log(self.css_tree)
 
     return ProjectScreen
