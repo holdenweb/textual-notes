@@ -48,7 +48,10 @@ class ConsoleApp(App):
     }
     #project-filter, #note-filter {
         display: none;
-        height: 1;
+        height: 3;
+        margin: 0 1;
+        border: round $accent;
+        background: $surface;
     }
     DataTable {
         height: 1fr;
