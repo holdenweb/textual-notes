@@ -1,36 +1,33 @@
+from __future__ import annotations
+
 from textual.app import App
-from textual.widgets import Footer, Header
-from .note_screen import build_note_screen
-from .project_screen import build_project_screen
-from textual_notes.load_data import load_data
+
+from .db import DB
+from .load_data import load_data
+from .project_list_screen import ProjectListScreen
 
 
 class ConsoleApp(App):
+    """Drill-down note-taking application.
+
+    Pushes ProjectListScreen on mount.  From there the user can
+    drill into individual projects and their notes.
     """
-    This app has the responsibility of presenting the basic user interface
-    and responding to user function selection.
 
-    In the initial version, each function is selected by its"""
+    TITLE = "Project Notes"
 
-    SCREENS = {
-        "note": build_note_screen("project_notes"),
-        "project": build_project_screen("project_notes"),
-    }
+    def __init__(self, db_name="project_notes"):
+        super().__init__()
+        self.db = DB(db_name)
 
-    BINDINGS = [
-        ("p", "push_screen('project')", "Projects"),
-        ("n", "push_screen('note')", "Notes"),
-        ("q", "quit()", "Quit"),
-    ]
-
-    def compose(self):
-        yield Header(show_clock=True, name="textual_forms demo")
-        yield Footer()
+    def on_mount(self) -> None:
+        self.push_screen(ProjectListScreen(self.db))
 
 
 def main():
-    app = ConsoleApp()
+    DB("project_notes")  # establish connection before loading data
     load_data()
+    app = ConsoleApp("project_notes")
     app.run()
 
 

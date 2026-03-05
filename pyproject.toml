@@ -1,14 +1,15 @@
 [project]
 name = "textual-notes"
 version = "0.1.0"
-description = "A small note-taking demo for the textual_forms package,"
+description = "A note-taking app using textual-wtf and forms-engine"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "mongoengine>=0.29.1",
     "mongomock>=4.3.0",
     "textual",
-    "textual-forms",
+    "textual-wtf>=0.10.0",
+    "forms-engine[mongoengine]",
 ]
 
 [[project.authors]]
@@ -33,7 +34,8 @@ publish-url = "https://test.pypi.org/legacy/"
 explicit = true
 
 [tool.uv.sources]
-textual-forms = { git = "https://github.com/holdenweb/textual-forms.git", rev = "r0.7.7" }
+textual-wtf = { path = "../textual-wtf", editable = true }
+forms-engine = { path = "../forms-engine", editable = true }
 textual = { path = "../textual-prod", editable = true }
 
 [tool.hatch.build.targets.wheel]

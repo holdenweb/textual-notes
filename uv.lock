@@ -169,6 +169,44 @@ wheels = [
 ]
 
 [[package]]
+name = "forms-engine"
+version = "0.1.0a1"
+source = { editable = "../../../../forms-engine" }
+dependencies = [
+    { name = "textual-wtf" },
+]
+
+[package.optional-dependencies]
+mongoengine = [
+    { name = "mongoengine" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "mongoengine", marker = "extra == 'all'", specifier = ">=0.29.0" },
+    { name = "mongoengine", marker = "extra == 'mongoengine'", specifier = ">=0.29.0" },
+    { name = "pydantic", marker = "extra == 'all'", specifier = ">=2.0" },
+    { name = "pydantic", marker = "extra == 'pydantic'", specifier = ">=2.0" },
+    { name = "textual-wtf", specifier = ">=0.10.0" },
+]
+provides-extras = ["mongoengine", "pydantic", "all"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mongoengine", specifier = ">=0.29.0" },
+    { name = "mongomock", specifier = ">=4.1" },
+    { name = "pydantic", specifier = ">=2.0" },
+    { name = "pytest", specifier = ">=9.0" },
+    { name = "pytest-cov", specifier = ">=7.0" },
+    { name = "ruff", specifier = ">=0.4" },
+]
+docs = [
+    { name = "mkdocs", specifier = ">=1.6" },
+    { name = "mkdocs-material", specifier = ">=9.7" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0" },
+]
+
+[[package]]
 name = "frozenlist"
 version = "1.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -701,7 +739,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/ac/b7/1af07a98390aba07d
 [[package]]
 name = "textual"
 version = "7.5.0"
-source = { editable = "../textual-prod" }
+source = { editable = "../../../../textual-prod" }
 dependencies = [
     { name = "markdown-it-py", extra = ["linkify"] },
     { name = "mdit-py-plugins" },
@@ -756,22 +794,15 @@ wheels = [
 ]
 
 [[package]]
-name = "textual-forms"
-version = "0.7.7"
-source = { git = "https://github.com/holdenweb/textual-forms.git?rev=r0.7.7#ad66db41013cc019a9f754b7d778e1be49a9dba6" }
-dependencies = [
-    { name = "textual" },
-]
-
-[[package]]
 name = "textual-notes"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "forms-engine", extra = ["mongoengine"] },
     { name = "mongoengine" },
     { name = "mongomock" },
     { name = "textual" },
-    { name = "textual-forms" },
+    { name = "textual-wtf" },
 ]
 
 [package.dev-dependencies]
@@ -787,10 +818,11 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "forms-engine", extras = ["mongoengine"], editable = "../../../../forms-engine" },
     { name = "mongoengine", specifier = ">=0.29.1" },
     { name = "mongomock", specifier = ">=4.3.0" },
-    { name = "textual", editable = "../textual-prod" },
-    { name = "textual-forms", git = "https://github.com/holdenweb/textual-forms.git?rev=r0.7.7" },
+    { name = "textual", editable = "../../../../textual-prod" },
+    { name = "textual-wtf", editable = "../../../../textual-wtf" },
 ]
 
 [package.metadata.requires-dev]
@@ -818,6 +850,33 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/27/41/09d5695b050d592ff58422be2ca5c9915787f59ff576ca91d9541d315406/textual_serve-1.1.2.tar.gz", hash = "sha256:0ccaf9b9df9c08d4b2d7a0887cad3272243ba87f68192c364f4bed5b683e4bd4", size = 892959, upload-time = "2025-04-16T12:11:41.746Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7c/fb/0006f86960ab8a2f69c9f496db657992000547f94f53a2f483fd611b4bd2/textual_serve-1.1.2-py3-none-any.whl", hash = "sha256:147d56b165dccf2f387203fe58d43ce98ccad34003fe3d38e6d2bc8903861865", size = 447326, upload-time = "2025-04-16T12:11:43.176Z" },
+]
+
+[[package]]
+name = "textual-wtf"
+version = "0.10.2"
+source = { editable = "../../../../textual-wtf" }
+dependencies = [
+    { name = "textual" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "textual", specifier = ">=0.47.0" }]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest", specifier = ">=9.0.2" },
+    { name = "pytest-asyncio", specifier = ">=1.3.0" },
+    { name = "pytest-cov", specifier = ">=7.0.0" },
+    { name = "textual-dev", specifier = ">=1.8.0" },
+]
+docs = [
+    { name = "mkdocs", specifier = ">=1.6.1,<2.0" },
+    { name = "mkdocs-autorefs", specifier = ">=1.2" },
+    { name = "mkdocs-material", specifier = ">=9.7.3,<10.0" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.3" },
+    { name = "mkdocstrings-python", specifier = ">=2.0" },
+    { name = "ruff", specifier = ">=0.4" },
 ]
 
 [[package]]

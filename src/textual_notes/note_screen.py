@@ -1,67 +1,76 @@
-# app.py: main application logic
+from __future__ import annotations
+
+from typing import Any
 
 from textual import on
 from textual.app import ComposeResult
-from textual.containers import VerticalScroll
-from textual.events import Click
 from textual.screen import ModalScreen
 
-from textual_notes.db import DB
-from textual_forms import Form, ChoiceField, StringField, TextField
+from forms_engine.mongoengine import ModelForm
+from textual_wtf import BaseForm, StringField, TextField
+
+from .db import DB, Note
+from .styles import FORM_HELP_STYLE, FORM_LABEL_STYLE
 
 
-def build_note_screen(db_name, data=None):
-    db = DB(db_name)
+def build_note_screen(
+    db: DB,
+    project_name: str,
+    edit_data: dict[str, Any] | None = None,
+):
+    class NoteForm(ModelForm):
+        heading = StringField("Heading")
+        comments = TextField("Comments")
 
-    def read_choices():
-        return [(n, n) for n in db.project_names() if n]
-
-    class NoteForm(Form):
-        project_name = ChoiceField(
-            read_choices(),
-            required=False,
-        )
-        heading = StringField(placeholder="Heading", required=True)
-        comments = TextField()
-
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-
-        def update_choices(self):
-            self.fields["project_name"].widget.set_options(read_choices())
-            self.fields["project_name"].widget.required = True
+        class Meta:
+            model = Note
+            exclude = ["timestamp", "project_name"]
 
     class NoteScreen(ModalScreen):
         DEFAULT_CSS = """
-#main-window {
+NoteScreen {
     align: center middle;
 }
 #form-container {
     width: 80%;
+    height: auto;
+    max-height: 80%;
+}
+FormTextArea {
+    min-height: 4;
+    height: auto;
 }
 """
 
-        def __init__(self, *args, **kwargs):
-            self.data = data
-            super().__init__(*args, **kwargs)
-
         def compose(self) -> ComposeResult:
-            with VerticalScroll(id="main-window"):
-                yield NoteForm(title="Add Note").render(id="form-container")
+            if edit_data:
+                # Strip _id before passing to form — it's only for the update call
+                form_data = {k: v for k, v in edit_data.items() if k != "_id"}
+                form = NoteForm(
+                    data=form_data,
+                    title="Edit Note",
+                    help_style=FORM_HELP_STYLE,
+                    label_style=FORM_LABEL_STYLE,
+                )
+            else:
+                form = NoteForm(
+                    title="New Note",
+                    help_style=FORM_HELP_STYLE,
+                    label_style=FORM_LABEL_STYLE,
+                )
+            yield form.layout(id="form-container")
 
-        @on(Form.Submitted)
+        @on(BaseForm.Submitted)
         def submitted(self, event):
             data = event.form.get_data()
-            db.save_note(**data)
+            if edit_data and "_id" in edit_data:
+                db.update_note(edit_data["_id"], project_name, **data)
+            else:
+                db.save_note(project_name, **data)
             self.dismiss(data)
 
-        @on(Form.Cancelled)
+        @on(BaseForm.Cancelled)
         def cancelled(self, event):
-            self.screen.dismiss()
-
-        @on(Click)  # For debug only
-        def click_response(self, e):
-            self.log(self.tree)
-            self.log(self.css_tree)
+            self.dismiss(None)
 
     return NoteScreen
