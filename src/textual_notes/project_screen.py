@@ -7,18 +7,19 @@ from textual.app import ComposeResult
 from textual.screen import ModalScreen
 
 from forms_engine.mongoengine import ModelForm
-from textual_wtf import BaseForm, TextField
+from textual_wtf import BaseForm, StringField, TextField
 
 from .db import DB, Project
 
 
 class ProjectForm(ModelForm):
+    name = StringField("Project Name")
+    homedir = StringField("Home Directory")
     description = TextField("Description")
 
     class Meta:
         model = Project
         exclude = ["timestamp"]
-        labels = {"name": "Project Name", "homedir": "Home Directory"}
 
 
 def build_project_screen(db: DB, edit_data: dict[str, Any] | None = None):
@@ -29,6 +30,8 @@ ProjectScreen {
 }
 #form-container {
     width: 80%;
+    height: auto;
+    max-height: 80%;
 }
 """
 

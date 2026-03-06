@@ -7,7 +7,7 @@ from textual.app import ComposeResult
 from textual.screen import ModalScreen
 
 from forms_engine.mongoengine import ModelForm
-from textual_wtf import BaseForm, TextField
+from textual_wtf import BaseForm, StringField, TextField
 
 from .db import DB, Note
 
@@ -18,6 +18,7 @@ def build_note_screen(
     edit_data: dict[str, Any] | None = None,
 ):
     class NoteForm(ModelForm):
+        heading = StringField("Heading")
         comments = TextField("Comments")
 
         class Meta:
@@ -31,6 +32,8 @@ NoteScreen {
 }
 #form-container {
     width: 80%;
+    height: auto;
+    max-height: 80%;
 }
 """
 
