@@ -9,7 +9,8 @@ class Project(me.Document):
     name = me.StringField(unique=True)
     homedir = me.StringField()
     description = me.StringField()
-    timestamp = me.DateTimeField()
+    timestamp = me.DateTimeField()  # created — never changes after creation
+    modified = me.DateTimeField()  # last-modified — updated only on real changes
 
     @classmethod
     def names(cls):
@@ -18,9 +19,10 @@ class Project(me.Document):
 
 class Note(me.Document):
     project_name = me.StringField()
-    timestamp = me.DateTimeField()
+    timestamp = me.DateTimeField()  # created — never changes after creation
     heading = me.StringField()
     comments = me.StringField()
+    modified = me.DateTimeField()  # last-modified — updated only on real changes
 
 
 _connected: dict[str, bool] = {}
@@ -67,21 +69,32 @@ class DB:
 
     def save_project(self, name, homedir, description):
         """Create a new project."""
+        now = datetime.datetime.now()
         new_project = Project(
             name=name,
-            timestamp=datetime.datetime.now(),
+            timestamp=now,
+            modified=now,
             homedir=homedir,
             description=description,
         )
         new_project.save()
 
     def update_project(self, original_name, name, homedir, description):
-        """Update an existing project identified by original_name."""
+        """Update an existing project identified by original_name.
+
+        Skips the save entirely if no fields have changed.
+        """
         project = Project.objects.get(name=original_name)
+        if (
+            project.name == name
+            and project.homedir == homedir
+            and project.description == description
+        ):
+            return  # nothing changed — don't touch the database
         project.name = name
         project.homedir = homedir
         project.description = description
-        project.timestamp = datetime.datetime.now()
+        project.modified = datetime.datetime.now()
         project.save()
 
     # -- Note queries --
@@ -101,19 +114,25 @@ class DB:
 
     def save_note(self, project_name, heading, comments):
         """Create a new note."""
+        now = datetime.datetime.now()
         new_note = Note(
             project_name=project_name,
-            timestamp=datetime.datetime.now(),
+            timestamp=now,
+            modified=now,
             heading=heading,
             comments=comments,
         )
         new_note.save()
 
     def update_note(self, note_id, project_name, heading, comments):
-        """Update an existing note identified by its ObjectId."""
+        """Update an existing note identified by its ObjectId.
+
+        Skips the save entirely if no fields have changed.
+        """
         note = Note.objects.get(id=note_id)
-        note.project_name = project_name
+        if note.heading == heading and note.comments == comments:
+            return  # nothing changed — don't touch the database
         note.heading = heading
         note.comments = comments
-        note.timestamp = datetime.datetime.now()
+        note.modified = datetime.datetime.now()
         note.save()

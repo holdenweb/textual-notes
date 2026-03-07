@@ -24,7 +24,7 @@ def build_note_screen(
 
         class Meta:
             model = Note
-            exclude = ["timestamp", "project_name"]
+            exclude = ["timestamp", "project_name", "modified"]
 
     class NoteScreen(ModalScreen):
         DEFAULT_CSS = """

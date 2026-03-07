@@ -30,6 +30,8 @@ def build_report_markdown(db: DB, project_name: str) -> str:
     notes = db.get_notes_for_project(project_name)
     for note in notes:
         ts = note.timestamp.strftime("%d %b %Y %H:%M") if note.timestamp else ""
+        if note.modified and note.modified != note.timestamp:
+            ts += f" (modified {note.modified.strftime('%d %b %Y %H:%M')})"
         lines.append(f"## {note.heading}")
         if ts:
             lines.append(f"*{ts}*\n")
