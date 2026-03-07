@@ -11,16 +11,18 @@ TEXTAREA_MIN_HEIGHT: int = 4
 
 # App-level CSS applied to all screens for form input contrast.
 FORM_INPUT_CSS: str = """
+DefaultFormLayout {
+    keyline: thin $accent;
+}
 FieldWidget Input,
 FieldWidget TextArea,
 FieldWidget Select {
     background: $panel;
-    border: round $accent;
+    border: none;
 }
 FieldWidget Input:focus,
 FieldWidget TextArea:focus,
 FieldWidget Select:focus {
-    border: round $accent-lighten-2;
     background-tint: $foreground 8%;
 }
 FormTextArea {
