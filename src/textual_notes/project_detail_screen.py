@@ -9,6 +9,7 @@ from textual.screen import Screen
 from textual.widgets import DataTable, Footer, Header, Input, Label, Static
 
 from .db import DB
+from .note_report import open_report_in_browser, save_report_as_pdf, show_report_screen
 from .note_screen import build_note_screen
 
 
@@ -50,6 +51,9 @@ class ProjectDetailScreen(Screen):
         Binding("e", "edit_note", "Edit"),
         Binding("d", "delete_note", "Delete"),
         Binding("s", "search", "Search"),
+        Binding("v", "view_report", "View"),
+        Binding("w", "web_report", "Web"),
+        Binding("p", "pdf_report", "PDF"),
         Binding("escape", "go_back", "Back"),
     ]
 
@@ -241,3 +245,21 @@ class ProjectDetailScreen(Screen):
     def _on_note_dismiss(self, result) -> None:
         if result is not None:
             self._refresh_notes()
+
+    # ── Report actions ────────────────────────────────────
+
+    def action_view_report(self) -> None:
+        show_report_screen(self.app, self.db, self.project_name)
+
+    def action_web_report(self) -> None:
+        open_report_in_browser(self.db, self.project_name)
+
+    def action_pdf_report(self) -> None:
+        self.run_worker(self._generate_pdf, thread=True)
+
+    async def _generate_pdf(self) -> None:
+        try:
+            path = save_report_as_pdf(self.db, self.project_name)
+            self.notify(f"PDF saved to {path}")
+        except ImportError as exc:
+            self.notify(str(exc), severity="error")
