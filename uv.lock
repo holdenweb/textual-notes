@@ -352,7 +352,7 @@ woff = [
 [[package]]
 name = "forms-engine"
 version = "0.1.0a1"
-source = { editable = "../../../../forms-engine" }
+source = { editable = "../forms-engine" }
 dependencies = [
     { name = "textual-wtf" },
 ]
@@ -1016,7 +1016,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/ac/b7/1af07a98390aba07d
 [[package]]
 name = "textual"
 version = "7.5.0"
-source = { editable = "../../../../textual-prod" }
+source = { editable = "../textual-prod" }
 dependencies = [
     { name = "markdown-it-py", extra = ["linkify"] },
     { name = "mdit-py-plugins" },
@@ -1113,12 +1113,12 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "forms-engine", extras = ["mongoengine"], editable = "../../../../forms-engine" },
+    { name = "forms-engine", extras = ["mongoengine"], editable = "../forms-engine" },
     { name = "mongoengine", specifier = ">=0.29.1" },
     { name = "mongomock", specifier = ">=4.3.0" },
-    { name = "textual", editable = "../../../../textual-prod" },
+    { name = "textual", editable = "../textual-prod" },
     { name = "textual-fspicker", specifier = ">=0.6" },
-    { name = "textual-wtf", editable = "../../../../textual-wtf" },
+    { name = "textual-wtf", editable = "../textual-wtf" },
     { name = "weasyprint", marker = "extra == 'pdf'", specifier = ">=62" },
 ]
 provides-extras = ["pdf"]
@@ -1153,7 +1153,7 @@ wheels = [
 [[package]]
 name = "textual-wtf"
 version = "0.10.2"
-source = { editable = "../../../../textual-wtf" }
+source = { editable = "../textual-wtf" }
 dependencies = [
     { name = "textual" },
 ]
