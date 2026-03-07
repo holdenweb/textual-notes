@@ -128,8 +128,31 @@ def open_report_in_browser(db: DB, project_name: str) -> None:
 # ── Mode C: PDF ───────────────────────────────────────────
 
 
+def _ensure_homebrew_lib_path() -> None:
+    """Add Homebrew lib directory to DYLD_FALLBACK_LIBRARY_PATH if needed.
+
+    On macOS with Apple Silicon, Homebrew installs to /opt/homebrew/lib
+    which isn't in the default dynamic linker search path.
+    """
+    import os
+    import sys
+
+    if sys.platform != "darwin":
+        return
+
+    for brew_lib in ("/opt/homebrew/lib", "/usr/local/lib"):
+        if Path(brew_lib).is_dir():
+            current = os.environ.get("DYLD_FALLBACK_LIBRARY_PATH", "")
+            if brew_lib not in current:
+                os.environ["DYLD_FALLBACK_LIBRARY_PATH"] = (
+                    f"{brew_lib}:{current}" if current else brew_lib
+                )
+            break
+
+
 def save_report_as_pdf(db: DB, project_name: str, path: Path | None = None) -> Path:
     """Generate a PDF report. Requires weasyprint."""
+    _ensure_homebrew_lib_path()
     try:
         from weasyprint import HTML  # type: ignore[import-untyped]
     except ImportError:
