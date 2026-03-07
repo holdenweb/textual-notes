@@ -3,7 +3,6 @@ from __future__ import annotations
 from textual.app import App
 
 from .db import DB
-from .load_data import load_data
 from .project_list_screen import ProjectListScreen
 from .styles import FORM_INPUT_CSS
 
@@ -27,8 +26,6 @@ class ConsoleApp(App):
 
 
 def main():
-    DB("project_notes")  # establish connection before loading data
-    load_data()
     app = ConsoleApp("project_notes")
     app.run()
 

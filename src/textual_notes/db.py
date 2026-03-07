@@ -23,6 +23,9 @@ class Note(me.Document):
     comments = me.StringField()
 
 
+_connected: dict[str, bool] = {}
+
+
 class DB:
     """
     Database access
@@ -31,14 +34,18 @@ class DB:
     def __init__(self, name=None):
         if name is None:
             self.db_name = "** Testing **"
-            me.connect(
-                "test_connection",
-                host="mongodb://localhost",
-                mongo_client_class=mm.MongoClient,
-            )
+            if "test_connection" not in _connected:
+                me.connect(
+                    "test_connection",
+                    host="mongodb://localhost",
+                    mongo_client_class=mm.MongoClient,
+                )
+                _connected["test_connection"] = True
         else:
             self.db_name = name
-            me.connect(name)
+            if name not in _connected:
+                me.connect(name)
+                _connected[name] = True
 
     def project_names(self):
         return [p.name for p in Project.objects.all().order_by("name")]
