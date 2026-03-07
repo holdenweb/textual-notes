@@ -8,6 +8,7 @@ dependencies = [
     "mongoengine>=0.29.1",
     "mongomock>=4.3.0",
     "textual",
+    "textual-fspicker>=0.6",
     "textual-wtf>=0.10.0",
     "forms-engine[mongoengine]",
 ]
