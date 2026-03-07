@@ -1,14 +1,18 @@
 from __future__ import annotations
 
-from textual import on
+from pathlib import Path
+
+from textual import on, work
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Vertical
 from textual.events import Key
 from textual.screen import Screen
 from textual.widgets import DataTable, Footer, Header, Input, Label, Static
+from textual_fspicker import FileSave, Filters
 
 from .db import DB
+from .note_report import open_report_in_browser, save_report_as_pdf, show_report_screen
 from .note_screen import build_note_screen
 
 
@@ -50,6 +54,9 @@ class ProjectDetailScreen(Screen):
         Binding("e", "edit_note", "Edit"),
         Binding("d", "delete_note", "Delete"),
         Binding("s", "search", "Search"),
+        Binding("v", "view_report", "View"),
+        Binding("w", "web_report", "Web"),
+        Binding("p", "pdf_report", "PDF"),
         Binding("escape", "go_back", "Back"),
     ]
 
@@ -241,3 +248,86 @@ class ProjectDetailScreen(Screen):
     def _on_note_dismiss(self, result) -> None:
         if result is not None:
             self._refresh_notes()
+
+    # ── Report actions ────────────────────────────────────
+
+    def action_view_report(self) -> None:
+        show_report_screen(self.app, self.db, self.project_name)
+
+    def action_web_report(self) -> None:
+        open_report_in_browser(self.db, self.project_name)
+
+    @work
+    async def action_pdf_report(self) -> None:
+        save_path: Path | None = await self.app.push_screen_wait(
+            FileSave(
+                location=Path.cwd(),
+                default_file=f"notes-{self.project_name}.pdf",
+                filters=Filters(
+                    ("PDF files", lambda p: p.suffix.lower() == ".pdf"),
+                ),
+            )
+        )
+        if save_path is None:
+            return
+        # Ensure a .pdf extension
+        if not save_path.suffix:
+            save_path = save_path.with_suffix(".pdf")
+        elif save_path.suffix.lower() != ".pdf":
+            confirmed = await self._confirm_suffix(save_path)
+            if not confirmed:
+                return
+        self.run_worker(lambda: self._generate_pdf(save_path), thread=True)
+
+    async def _confirm_suffix(self, path: Path) -> bool:
+        """Ask the user to confirm a non-.pdf file extension."""
+        from textual.screen import ModalScreen
+        from textual.widgets import Button
+
+        class ConfirmSuffix(ModalScreen[bool]):
+            CSS = """
+            ConfirmSuffix {
+                align: center middle;
+            }
+            #confirm-box {
+                width: 60;
+                height: auto;
+                padding: 1 2;
+                background: $surface;
+                border: round $accent;
+            }
+            #confirm-box Button {
+                margin: 1 1 0 0;
+            }
+            """
+
+            def compose(self):
+                from textual.containers import Horizontal
+
+                with Vertical(id="confirm-box"):
+                    yield Static(
+                        f'File will be saved as "{path.name}" '
+                        f"(extension: {path.suffix}).\n\n"
+                        "PDF reports normally use a .pdf extension.\n"
+                        "Save with this extension anyway?"
+                    )
+                    with Horizontal():
+                        yield Button("Save anyway", id="yes", variant="primary")
+                        yield Button("Cancel", id="no")
+
+            @on(Button.Pressed, "#yes")
+            def confirm(self, event: Button.Pressed) -> None:
+                self.dismiss(True)
+
+            @on(Button.Pressed, "#no")
+            def cancel(self, event: Button.Pressed) -> None:
+                self.dismiss(False)
+
+        return await self.app.push_screen_wait(ConfirmSuffix())
+
+    def _generate_pdf(self, path: Path) -> None:
+        try:
+            result = save_report_as_pdf(self.db, self.project_name, path=path)
+            self.notify(f"PDF saved to {result}")
+        except (ImportError, OSError) as exc:
+            self.notify(str(exc), severity="error")
