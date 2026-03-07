@@ -101,7 +101,8 @@ class ProjectDetailScreen(Screen):
         table.clear()
         self._note_rows = []
         for note in self.db.get_notes_for_project(self.project_name):
-            ts = note.timestamp.strftime("%Y-%m-%d %H:%M") if note.timestamp else ""
+            display_date = note.modified or note.timestamp
+            ts = display_date.strftime("%Y-%m-%d %H:%M") if display_date else ""
             comments_full = note.comments or ""
             comments_display = comments_full.replace("\n", " ")
             if len(comments_display) > 60:
