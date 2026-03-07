@@ -10,6 +10,7 @@ from forms_engine.mongoengine import ModelForm
 from textual_wtf import BaseForm, StringField, TextField
 
 from .db import DB, Project
+from .styles import FORM_HELP_STYLE, FORM_LABEL_STYLE
 
 
 class ProjectForm(ModelForm):
@@ -33,13 +34,26 @@ ProjectScreen {
     height: auto;
     max-height: 80%;
 }
+FormTextArea {
+    min-height: 4;
+    height: auto;
+}
 """
 
         def compose(self) -> ComposeResult:
             if edit_data:
-                form = ProjectForm(data=edit_data, title="Edit Project")
+                form = ProjectForm(
+                    data=edit_data,
+                    title="Edit Project",
+                    help_style=FORM_HELP_STYLE,
+                    label_style=FORM_LABEL_STYLE,
+                )
             else:
-                form = ProjectForm(title="New Project")
+                form = ProjectForm(
+                    title="New Project",
+                    help_style=FORM_HELP_STYLE,
+                    label_style=FORM_LABEL_STYLE,
+                )
             yield form.layout(id="form-container")
 
         @on(BaseForm.Submitted)

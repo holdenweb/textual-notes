@@ -10,6 +10,7 @@ from forms_engine.mongoengine import ModelForm
 from textual_wtf import BaseForm, StringField, TextField
 
 from .db import DB, Note
+from .styles import FORM_HELP_STYLE, FORM_LABEL_STYLE
 
 
 def build_note_screen(
@@ -35,15 +36,28 @@ NoteScreen {
     height: auto;
     max-height: 80%;
 }
+FormTextArea {
+    min-height: 4;
+    height: auto;
+}
 """
 
         def compose(self) -> ComposeResult:
             if edit_data:
                 # Strip _id before passing to form — it's only for the update call
                 form_data = {k: v for k, v in edit_data.items() if k != "_id"}
-                form = NoteForm(data=form_data, title="Edit Note")
+                form = NoteForm(
+                    data=form_data,
+                    title="Edit Note",
+                    help_style=FORM_HELP_STYLE,
+                    label_style=FORM_LABEL_STYLE,
+                )
             else:
-                form = NoteForm(title="New Note")
+                form = NoteForm(
+                    title="New Note",
+                    help_style=FORM_HELP_STYLE,
+                    label_style=FORM_LABEL_STYLE,
+                )
             yield form.layout(id="form-container")
 
         @on(BaseForm.Submitted)
