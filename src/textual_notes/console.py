@@ -5,6 +5,7 @@ from textual.app import App
 from .db import DB
 from .load_data import load_data
 from .project_list_screen import ProjectListScreen
+from .styles import FORM_INPUT_CSS
 
 
 class ConsoleApp(App):
@@ -15,6 +16,7 @@ class ConsoleApp(App):
     """
 
     TITLE = "Project Notes"
+    CSS = FORM_INPUT_CSS
 
     def __init__(self, db_name="project_notes"):
         super().__init__()
