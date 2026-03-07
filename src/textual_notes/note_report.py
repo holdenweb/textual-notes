@@ -137,6 +137,10 @@ def save_report_as_pdf(db: DB, project_name: str, path: Path | None = None) -> P
             "PDF export requires weasyprint. Install with: "
             "uv pip install weasyprint  (also needs: brew install pango)"
         ) from None
+    except OSError:
+        raise OSError(
+            "weasyprint needs system libraries. Install with: brew install pango"
+        ) from None
 
     md_text = build_report_markdown(db, project_name)
     html_str = _markdown_to_html(md_text, title=f"Notes: {project_name}")

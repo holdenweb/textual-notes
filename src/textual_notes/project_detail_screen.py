@@ -261,5 +261,5 @@ class ProjectDetailScreen(Screen):
         try:
             path = save_report_as_pdf(self.db, self.project_name)
             self.notify(f"PDF saved to {path}")
-        except ImportError as exc:
+        except (ImportError, OSError) as exc:
             self.notify(str(exc), severity="error")
