@@ -13,12 +13,16 @@ TEXTAREA_MIN_HEIGHT: int = 4
 FORM_INPUT_CSS: str = """
 DefaultFormLayout {
     keyline: thin $accent;
+    border: round $accent;
 }
 FieldWidget Input,
 FieldWidget TextArea,
 FieldWidget Select {
     background: $panel;
     border: none;
+}
+FieldWidget Input {
+    height: 1;
 }
 FieldWidget Input:focus,
 FieldWidget TextArea:focus,
