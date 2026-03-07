@@ -259,15 +259,9 @@ class ProjectDetailScreen(Screen):
 
     @work
     async def action_pdf_report(self) -> None:
-        project = self.db.get_project(self.project_name)
-        start_dir = (
-            Path(project.homedir)
-            if project and project.homedir and Path(project.homedir).is_dir()
-            else Path.home()
-        )
         save_path: Path | None = await self.app.push_screen_wait(
             FileSave(
-                location=start_dir,
+                location=Path.cwd(),
                 default_file=f"notes-{self.project_name}.pdf",
                 filters=Filters(
                     ("PDF files", lambda p: p.suffix.lower() == ".pdf"),
@@ -283,7 +277,7 @@ class ProjectDetailScreen(Screen):
             confirmed = await self._confirm_suffix(save_path)
             if not confirmed:
                 return
-        self.run_worker(self._generate_pdf, save_path, thread=True)
+        self.run_worker(lambda: self._generate_pdf(save_path), thread=True)
 
     async def _confirm_suffix(self, path: Path) -> bool:
         """Ask the user to confirm a non-.pdf file extension."""
@@ -331,7 +325,7 @@ class ProjectDetailScreen(Screen):
 
         return await self.app.push_screen_wait(ConfirmSuffix())
 
-    async def _generate_pdf(self, path: Path) -> None:
+    def _generate_pdf(self, path: Path) -> None:
         try:
             result = save_report_as_pdf(self.db, self.project_name, path=path)
             self.notify(f"PDF saved to {result}")
