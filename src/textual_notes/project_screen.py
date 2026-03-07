@@ -34,10 +34,6 @@ ProjectScreen {
     height: auto;
     max-height: 80%;
 }
-FormTextArea {
-    min-height: 4;
-    height: auto;
-}
 """
 
         def compose(self) -> ComposeResult:
