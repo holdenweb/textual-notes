@@ -28,6 +28,11 @@ class Note(me.Document):
 _connected: dict[str, bool] = {}
 
 
+def _eq(a: str | None, b: str | None) -> bool:
+    """Compare two optional string fields, treating None and '' as equal."""
+    return (a or "") == (b or "")
+
+
 class DB:
     """
     Database access
@@ -86,9 +91,9 @@ class DB:
         """
         project = Project.objects.get(name=original_name)
         if (
-            project.name == name
-            and project.homedir == homedir
-            and project.description == description
+            _eq(project.name, name)
+            and _eq(project.homedir, homedir)
+            and _eq(project.description, description)
         ):
             return  # nothing changed — don't touch the database
         project.name = name
@@ -130,7 +135,7 @@ class DB:
         Skips the save entirely if no fields have changed.
         """
         note = Note.objects.get(id=note_id)
-        if note.heading == heading and note.comments == comments:
+        if _eq(note.heading, heading) and _eq(note.comments, comments):
             return  # nothing changed — don't touch the database
         note.heading = heading
         note.comments = comments
