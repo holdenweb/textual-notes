@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "678f8d21ed33c6f3e9fa57c2"
+  },
+  "name": "dotfiles"
+},
+{
+  "_id": {
+    "$oid": "678f8d21ed33c6f3e9fa57c3"
+  },
+  "name": "notes"
+},
+{
+  "_id": {
+    "$oid": "678f8d21ed33c6f3e9fa57c5"
+  },
+  "name": "tagset",
+  "homedir": "/Users/sholden/Projects/Python/textual_tagset"
+},
+{
+  "_id": {
+    "$oid": "67ab34141474d564b897baf8"
+  },
+  "name": "TIL"
+},
+{
+  "_id": {
+    "$oid": "67c8744117ca3a4829a7995e"
+  },
+  "name": "filescan",
+  "homedir": "/Users/sholden/Projects/Python/filescan"
+},
+{
+  "_id": {
+    "$oid": "68075cfb3350dcb078f92417"
+  },
+  "name": "textual-forms",
+  "homedir": "/Users/sholden/Projects/Python/textual-forms"
+}
+]
