@@ -20,7 +20,7 @@ class ProjectForm(ModelForm):
 
     class Meta:
         model = Project
-        exclude = ["timestamp"]
+        exclude = ["timestamp", "modified"]
 
 
 def build_project_screen(db: DB, edit_data: dict[str, Any] | None = None):
